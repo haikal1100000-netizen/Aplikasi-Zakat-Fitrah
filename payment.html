@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AmanahPay - Pembayaran</title>
+    <meta name="description" content="Metode pembayaran Virtual Account AmanahPay untuk donasi Zakat, Infak, Sedekah, dan Dam Haji.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header id="header">
+        <nav class="container">
+            <a href="/" class="logo">
+                <i class="fas fa-mosque"></i>
+                <span>AmanahPay</span>
+            </a>
+            <ul class="nav-links">
+                <li><a href="/" data-page="home" class="nav-link">Beranda</a></li>
+                <li><a href="/calculator" data-page="calculator" class="nav-link">Kalkulator</a></li>
+                <li><a href="/features" data-page="features" class="nav-link">Fitur</a></li>
+                <li><a href="/transparency" data-page="transparency" class="nav-link">Transparansi</a></li>
+                <li><a href="/gamification" data-page="gamification" class="nav-link">Gamifikasi</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="page-enter-active">
+        <section class="payment-hero section">
+            <div class="container">
+                <div class="hero-content text-center">
+                    <h1>Metode Pembayaran</h1>
+                    <p>Silahkan pilih salah satu metode pembayaran Virtual Account untuk menyelesaikan donasi Anda.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <div class="payment-card">
+                    <div class="payment-summary">
+                        <div>
+                            <h3>Virtual Account</h3>
+                            <p>Minimal pembayaran Rp10.000</p>
+                        </div>
+                        <div class="payment-info">
+                            <span>Jumlah</span>
+                            <strong id="paymentAmount">Rp 2.450.000</strong>
+                        </div>
+                    </div>
+
+                    <div class="payment-meta">
+                        <div>
+                            <span>Kategori</span>
+                            <strong id="paymentCategory">Zakat</strong>
+                        </div>
+                        <div>
+                            <span>Paket</span>
+                            <strong id="paymentPackage">Paket Standar</strong>
+                        </div>
+                        <div>
+                            <span>Jumlah</span>
+                            <strong id="paymentQuantity">1</strong>
+                        </div>
+                    </div>
+
+                    <div class="payment-methods" id="vaMethods"></div>
+
+                    <div class="payment-detail-card">
+                        <h4 id="paymentBankName">Bank BSI</h4>
+                        <p id="paymentInstruction">Lakukan pembayaran dari rekening Bank BSI ke nomor virtual account di bawah ini.</p>
+                        <div class="va-number-card">
+                            <span id="paymentVaNumber">20203814063892657</span>
+                            <button class="copy-btn" type="button">Salin</button>
+                        </div>
+                    </div>
+
+                    <div class="payment-intention">
+                        <div class="intention-text">نَوَيْتُ أَنْ أُخْرِجَ زَكَاةَ مَالِي فَرْضًا لِلَّهِ تَعَالَى</div>
+                        <p class="intention-quote">“Nawaitu an ukhrija zakata maali fardhan lillahi ta’ala.”</p>
+                        <p class="intention-note">Aku niat mengeluarkan zakat hartaku fardhu karena Allah Ta’ala.</p>
+                    </div>
+
+                    <div class="payment-info-box">
+                        <div class="info-icon"><i class="fas fa-info-circle"></i></div>
+                        <div>
+                            Setelah menyelesaikan pembayaran, Anda akan menerima panggilan yang berisikan doa dan ucapan terima kasih dari nomor <strong>14047</strong>
+                        </div>
+                    </div>
+
+                    <div class="payment-actions">
+                        <button class="btn-reset" id="paymentBack">Kembali</button>
+                        <button class="cta-primary" id="paymentPay">Bayar</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4><i class="fas fa-mosque"></i> AmanahPay</h4>
+                    <p>Ekosistem ekonomi umat berbasis teknologi syariah. Transparan, aman, dan memberdayakan.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="/calculator">Kalkulator Zakat</a>
+                    <a href="/features">Fitur Lengkap</a>
+                    <a href="/transparency">Tracking Donasi</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Perusahaan</h4>
+                    <a href="#">Tentang Kami</a>
+                    <a href="#">Karir</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Kontak</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Bantuan</h4>
+                    <a href="#">FAQ</a>
+                    <a href="#">Panduan</a>
+                    <a href="#">Laporan Keuangan</a>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AmanahPay. Semua hak dilindungi. <strong>Syariah Compliant</strong></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

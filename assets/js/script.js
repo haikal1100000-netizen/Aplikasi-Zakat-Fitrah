@@ -6,7 +6,8 @@ class AmanahPayApp {
             calculator: 'calculator.html',
             features: 'features.html',
             transparency: 'transparency.html',
-            gamification: 'gamification.html'
+            gamification: 'gamification.html',
+            payment: 'payment.html'
         };
         this.currentPage = 'home';
         this.init();
@@ -138,6 +139,9 @@ class AmanahPayApp {
             case 'calculator':
                 this.initCalculator();
                 break;
+            case 'payment':
+                this.initPaymentPage();
+                break;
             case 'transparency':
                 this.initTransparency();
                 break;
@@ -168,7 +172,17 @@ class AmanahPayApp {
                 { label: 'Domba/Kambing Medium (27-29 kg) Rp2,9jt', value: 2900000 },
                 { label: 'Domba/Kambing Premium (30-33 kg) Rp3,1jt', value: 3100000 },
                 { label: 'Sapi 1/7 (250-300 kg) Rp3jt', value: 3000000 },
-                { label: 'Sapi (250-300 kg) Rp2,1jt', value: 2100000 }
+                { label: 'Sapi (250-300 kg) Rp2,1jt', value: 2100000 },
+                { label: 'Sapi Kemasan (250 kaleng) Rp21jt', value: 21000000 },
+                { label: 'Domba/Kambing Palestina Reguler (35 Kg) Rp5,9jt', value: 5900000 },
+                { label: 'Domba/Kambing Palestina Premium (45 Kg) Rp9jt', value: 9000000 },
+                { label: 'Sapi Palestina 1/7 Dalam Kaleng (20 Kg) Rp5,9jt', value: 5900000 },
+                { label: 'Sapi Al-Quds (450 Kg) Rp59jt', value: 59000000 }
+            ],
+            'Dam Haji': [
+                { label: 'Dam Haji Standar (21-26 kg) Rp2,45jt', value: 2450000 },
+                { label: 'Dam Haji Medium (27-29 kg) Rp2,9jt', value: 2900000 },
+                { label: 'Dam Haji Premium (30-33 kg) Rp3,1jt', value: 3100000 }
             ],
             Sedekah: [
                 { label: 'Sedekah Palestina', value: 500000 },
@@ -176,6 +190,13 @@ class AmanahPayApp {
                 { label: 'Sedekah BAZNAS', value: 150000 },
                 { label: 'Sedekah Bencana', value: 200000 },
                 { label: 'Sedekah Daging', value: 350000 }
+            ],
+            Infak: [
+                { label: 'Infak Kemanusiaan', value: 100000 },
+                { label: 'Infak Pendidikan', value: 150000 },
+                { label: 'Infak Kesehatan', value: 200000 },
+                { label: 'Infak Ekonomi', value: 250000 },
+                { label: 'Infak Dakwah', value: 120000 }
             ]
         };
 
@@ -187,13 +208,16 @@ class AmanahPayApp {
 
         function updateDonationInputs() {
             const category = donationCategory.value;
-            if (category === 'Kurban' || category === 'Sedekah') {
+            const showQuantity = category === 'Kurban' || category === 'Dam Haji';
+            const isPackageCategory = showQuantity || category === 'Sedekah' || category === 'Infak';
+
+            if (isPackageCategory) {
                 donationItemGroup.style.display = 'block';
                 donationItem.innerHTML = donationItems[category].map(item => `
                     <option value="${item.value}">${item.label}</option>
                 `).join('');
-                donationItemLabel.textContent = category === 'Kurban' ? 'Pilih Paket Kurban' : 'Pilih Program Sedekah';
-                donationQuantityGroup.style.display = category === 'Kurban' ? 'block' : 'none';
+                donationItemLabel.textContent = category === 'Kurban' ? 'Pilih Paket Kurban' : category === 'Dam Haji' ? 'Pilih Paket Dam Haji' : category === 'Sedekah' ? 'Pilih Program Sedekah' : 'Pilih Program Infak';
+                donationQuantityGroup.style.display = showQuantity ? 'block' : 'none';
                 donationQuantity.value = '1';
                 donationAmount.readOnly = true;
                 donationAmountWrapper.classList.add('disabled');
@@ -209,11 +233,11 @@ class AmanahPayApp {
 
         function updateDonationAmount() {
             const category = donationCategory.value;
-            if (category === 'Kurban') {
+            if (category === 'Kurban' || category === 'Dam Haji') {
                 const unit = parseInt(donationQuantity.value, 10) || 1;
                 const itemPrice = parseInt(donationItem.value, 10) || 0;
                 donationAmount.value = formatNumber(itemPrice * unit);
-            } else if (category === 'Sedekah') {
+            } else if (category === 'Sedekah' || category === 'Infak') {
                 const itemPrice = parseInt(donationItem.value, 10) || 0;
                 donationAmount.value = formatNumber(itemPrice);
             }
@@ -235,17 +259,135 @@ class AmanahPayApp {
         updateDonationInputs();
 
         document.querySelector('.select-payment-btn')?.addEventListener('click', () => {
-            const amount = donationAmount.value || '0';
+            const rawAmount = donationAmount.value || '0';
+            const paymentAmount = parseInt(rawAmount.replace(/\D/g, ''), 10) || 0;
             const category = donationCategory.value;
-            alert(`Lanjutkan ke pembayaran untuk ${category} dengan nominal Rp${amount}`);
+            const packageLabel = donationItem?.options[donationItem.selectedIndex]?.text || '';
+            const quantity = donationQuantity?.value || '1';
+
+            sessionStorage.setItem('amanahPayPayment', JSON.stringify({
+                amount: paymentAmount,
+                category,
+                packageLabel,
+                quantity
+            }));
+
+            this.loadPage('/payment');
+        });
+    }
+
+    initPaymentPage() {
+        const paymentData = JSON.parse(sessionStorage.getItem('amanahPayPayment') || '{}');
+        const defaultAmount = paymentData.amount || 2450000;
+        const amount = paymentData.amount || defaultAmount;
+
+        const paymentAmountLabel = document.getElementById('paymentAmount');
+        const paymentCategoryLabel = document.getElementById('paymentCategory');
+        const paymentPackageLabel = document.getElementById('paymentPackage');
+        const paymentQuantityLabel = document.getElementById('paymentQuantity');
+        const paymentMethodContainer = document.getElementById('vaMethods');
+        const paymentInstruction = document.getElementById('paymentInstruction');
+        const paymentBankName = document.getElementById('paymentBankName');
+        const paymentVaNumber = document.getElementById('paymentVaNumber');
+        const paymentIntention = document.querySelector('.payment-intention');
+
+        const methods = [
+            { id: 'BSI', label: 'BSI Virtual Account', note: 'Menerima transfer dari bank lain', va: '20203814063892657', bank: 'Bank BSI' },
+            { id: 'BCA', label: 'BCA Virtual Account', note: 'Menerima transfer dari bank lain', va: '8881234567890123', bank: 'Bank BCA' },
+            { id: 'Mandiri', label: 'Mandiri Virtual Account', note: 'Menerima transfer dari bank lain', va: '8889876543210987', bank: 'Bank Mandiri' },
+            { id: 'BNI', label: 'BNI Virtual Account', note: 'Menerima transfer dari bank lain', va: '8885678901234567', bank: 'Bank BNI' },
+            { id: 'BRI', label: 'BRI Virtual Account', note: 'Menerima transfer dari bank lain', va: '8882468013579246', bank: 'Bank BRI' },
+            { id: 'CIMB', label: 'CIMB Virtual Account', note: 'Menerima transfer dari bank lain', va: '8883141592653589', bank: 'Bank CIMB' },
+            { id: 'Permata', label: 'Permata Virtual Account', note: 'Menerima transfer dari bank lain', va: '8882718281828459', bank: 'Bank Permata' }
+        ];
+
+        const formatCurrency = value => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(value);
+
+        const renderSelectedMethod = (method) => {
+            if (!method) return;
+            paymentBankName.textContent = method.bank;
+            paymentInstruction.textContent = `Lakukan pembayaran dari rekening ${method.bank} ke nomor virtual account di bawah ini.`;
+            paymentVaNumber.textContent = method.va;
+        };
+
+        paymentAmountLabel.textContent = formatCurrency(amount);
+        paymentCategoryLabel.textContent = paymentData.category || 'Zakat';
+        paymentPackageLabel.textContent = paymentData.packageLabel || 'Paket Standar';
+        paymentQuantityLabel.textContent = paymentData.quantity || '1';
+
+        if (paymentIntention) {
+            paymentIntention.style.display = paymentData.category === 'Zakat' ? 'block' : 'none';
+        }
+
+        paymentMethodContainer.innerHTML = methods.map((method, index) => `
+            <label class="va-option ${index === 0 ? 'active' : ''}">
+                <input type="radio" name="vaMethod" value="${method.id}" ${index === 0 ? 'checked' : ''}>
+                <span class="bank-logo bank-logo-${method.id.toLowerCase()}">${method.id}</span>
+                <div>
+                    <strong>${method.label}</strong>
+                    <span>${method.note}</span>
+                </div>
+            </label>
+        `).join('');
+
+        const radioButtons = paymentMethodContainer.querySelectorAll('input[name="vaMethod"]');
+        let selectedMethod = methods[0];
+        renderSelectedMethod(selectedMethod);
+
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', () => {
+                selectedMethod = methods.find(method => method.id === radio.value) || methods[0];
+                paymentMethodContainer.querySelectorAll('.va-option').forEach(option => {
+                    option.classList.toggle('active', option.contains(radio));
+                });
+                renderSelectedMethod(selectedMethod);
+            });
         });
 
-        document.getElementById('homeCalcBtn')?.addEventListener('click', () => {
-            const value = parseFloat(document.getElementById('homeCalcValue')?.value) || 0;
-            const amount = value * 0.025;
-            document.getElementById('homeCalcResult').textContent = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(amount);
-            document.getElementById('homeCalcDesc').textContent = 'Perkiraan zakat 2.5% dari nominal Anda.';
-            document.getElementById('homeCalcResultBox').style.display = 'block';
+        document.getElementById('paymentBack')?.addEventListener('click', () => {
+            window.history.back();
+        });
+
+        document.getElementById('paymentPay')?.addEventListener('click', () => {
+            const orderId = `#T-${Date.now()}`;
+            const modal = document.createElement('div');
+            modal.className = 'payment-modal-overlay';
+            modal.innerHTML = `
+                <div class="payment-modal">
+                    <div class="modal-header">
+                        <strong>BAZNAS</strong>
+                        <button class="modal-close" type="button">×</button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="modal-amount">${formatCurrency(amount)}</div>
+                        <div class="modal-meta">
+                            <span>Order ID ${orderId}</span>
+                            <span>Bayar dalam 00:59:55</span>
+                        </div>
+                        <div class="modal-bank">
+                            <h4>${selectedMethod.bank}</h4>
+                            <p>Lakukan pembayaran dari rekening ${selectedMethod.bank} ke nomor virtual account di bawah ini.</p>
+                            <div class="modal-va">
+                                <span>${selectedMethod.va}</span>
+                                <button class="copy-btn" type="button">Salin</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="button" class="btn-reset modal-close">Tutup</button>
+                        <button type="button" class="cta-primary">Cek status</button>
+                    </div>
+                </div>
+            `;
+
+            modal.querySelectorAll('.modal-close').forEach(btn => {
+                btn.addEventListener('click', () => modal.remove());
+            });
+            modal.querySelector('.copy-btn')?.addEventListener('click', () => {
+                navigator.clipboard.writeText(selectedMethod.va);
+            });
+
+            document.body.appendChild(modal);
         });
     }
     // Tambah ke AmanahPayApp class
@@ -288,11 +430,13 @@ initGamification() {
         const tabs = document.querySelectorAll('.calc-tab');
         const contents = document.querySelectorAll('.calc-content');
         const resultBox = document.getElementById('calcResult');
+        const resetButton = document.getElementById('calcReset');
+        const calculateButton = document.getElementById('calcBtn');
+        const inputs = document.querySelectorAll('.calculator-section input');
 
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 const target = tab.dataset.tab;
-
                 tabs.forEach(t => t.classList.remove('active'));
                 contents.forEach(c => c.classList.remove('active'));
                 resultBox && (resultBox.style.display = 'none');
@@ -302,11 +446,14 @@ initGamification() {
             });
         });
 
-        document.querySelectorAll('.calculator-section input').forEach(input => {
-            input.addEventListener('input', debounce(() => this.calculateZakat(), 300));
+        calculateButton?.addEventListener('click', () => {
+            this.calculateZakat();
         });
 
-        this.calculateZakat();
+        resetButton?.addEventListener('click', () => {
+            inputs.forEach(input => input.value = '0');
+            resultBox && (resultBox.style.display = 'none');
+        });
     }
 
     calculateZakat() {
@@ -314,43 +461,38 @@ initGamification() {
         const resultBox = document.getElementById('calcResult');
         if (!activeTab || !resultBox) return;
 
-        const goldPrice = parseFloat(document.getElementById('goldPrice')?.value) || 1200000;
         const rate = 0.025;
+        const nisabThreshold = 85 * 1200000;
         let title = '';
         let desc = '';
-        let amount = 0;
-        let nisab = 85 * goldPrice;
+        let totalAssets = 0;
         let zakat = 0;
 
         if (activeTab.id === 'penghasilan') {
-            const monthly = parseFloat(document.getElementById('income')?.value) || 0;
-            amount = monthly * 12;
+            const monthly = parseFloat(document.getElementById('incomeMonthly')?.value) || 0;
+            const bonus = parseFloat(document.getElementById('incomeBonus')?.value) || 0;
+            const annualIncome = monthly * 12 + bonus;
             title = 'Zakat Penghasilan';
-            if (amount >= nisab) {
-                zakat = amount * rate;
-                desc = `Nisab terpenuhi (Rp${nisab.toLocaleString('id-ID')}). Zakat 2.5% dari penghasilan tahunan Rp${amount.toLocaleString('id-ID')}.`;
+            totalAssets = annualIncome;
+            if (annualIncome >= nisabThreshold) {
+                zakat = annualIncome * rate;
+                desc = `Nisab terpenuhi (Rp${nisabThreshold.toLocaleString('id-ID')}). Zakat 2.5% dari penghasilan tahunan Rp${annualIncome.toLocaleString('id-ID')}.`;
             } else {
-                desc = `Belum nisab (minimal Rp${nisab.toLocaleString('id-ID')} per tahun). Penghasilan tahunan saat ini Rp${amount.toLocaleString('id-ID')}.`;
+                desc = `Belum nisab (minimal Rp${nisabThreshold.toLocaleString('id-ID')} per tahun). Penghasilan tahunan saat ini Rp${annualIncome.toLocaleString('id-ID')}.`;
             }
         } else if (activeTab.id === 'maal') {
-            const gold = parseFloat(document.getElementById('gold')?.value) || 0;
-            amount = gold * goldPrice;
-            title = 'Zakat Maal / Emas';
-            if (amount >= nisab) {
-                zakat = amount * rate;
-                desc = `Nisab terpenuhi (${Math.round(amount / nisab * 100)}%). Zakat 2.5% dari total Rp${amount.toLocaleString('id-ID')}.`;
+            const jewelry = parseFloat(document.getElementById('maalJewelry')?.value) || 0;
+            const cash = parseFloat(document.getElementById('maalCash')?.value) || 0;
+            const assets = parseFloat(document.getElementById('maalAssets')?.value) || 0;
+            const debt = parseFloat(document.getElementById('maalDebt')?.value) || 0;
+            const netMaal = Math.max(jewelry + cash + assets - debt, 0);
+            title = 'Zakat Maal';
+            totalAssets = netMaal;
+            if (netMaal >= nisabThreshold) {
+                zakat = netMaal * rate;
+                desc = `Nisab terpenuhi (Rp${nisabThreshold.toLocaleString('id-ID')}). Zakat 2.5% dari total harta Rp${netMaal.toLocaleString('id-ID')}.`;
             } else {
-                desc = `Belum nisab (Rp${nisab.toLocaleString('id-ID')}), nilai emas saat ini Rp${amount.toLocaleString('id-ID')}.`;
-            }
-        } else if (activeTab.id === 'perdagangan') {
-            const trade = parseFloat(document.getElementById('trade')?.value) || 0;
-            amount = trade;
-            title = 'Zakat Perdagangan';
-            if (amount >= nisab) {
-                zakat = amount * rate;
-                desc = `Nisab terpenuhi (${Math.round(amount / nisab * 100)}%). Zakat 2.5% dari total persediaan Rp${amount.toLocaleString('id-ID')}.`;
-            } else {
-                desc = `Belum nisab (Rp${nisab.toLocaleString('id-ID')}), nilai persediaan saat ini Rp${amount.toLocaleString('id-ID')}.`;
+                desc = `Belum nisab (minimal Rp${nisabThreshold.toLocaleString('id-ID')}). Total harta saat ini Rp${netMaal.toLocaleString('id-ID')}.`;
             }
         }
 
