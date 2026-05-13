@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AmanahPay - Gamifikasi</title>
-    <meta name="description" content="Halaman gamifikasi AmanahPay untuk badge kebaikan, leaderboard, dan misi ibadah.">
+<title>AmanahPay - Pendanaan UMKM Syariah</title>
+    <meta name="description" content="Halaman pendanaan UMKM syariah AmanahPay untuk program pemberdayaan dan kontribusi.">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -18,7 +18,7 @@
                 <li><a href="/calculator" data-page="calculator" class="nav-link">Kalkulator</a></li>
                 <li><a href="/features" data-page="features" class="nav-link">Fitur</a></li>
                 <li><a href="/transparency" data-page="transparency" class="nav-link">Transparansi</a></li>
-                <li><a href="/gamification" data-page="gamification" class="nav-link active">Gamifikasi</a></li>
+                <li><a href="/gamification" data-page="gamification" class="nav-link active">Pendanaan UMKM Syariah</a></li>
             </ul>
             <div class="mobile-menu" id="mobileMenu"><span></span><span></span><span></span></div>
         </nav>
@@ -28,52 +28,184 @@
         <section class="hero">
             <div class="container">
                 <div class="hero-content text-center">
-                    <h1><i class="fas fa-trophy"></i> Gamifikasi Ibadah</h1>
-                    <p class="hero-subtitle">Kumpulkan badge kebaikan dan masuk leaderboard umat</p>
+                    <h1><i class="fas fa-store"></i> Pendanaan UMKM Syariah</h1>
+                    <p class="hero-subtitle">Kumpulkan badge dampak, dorong mitra UMKM, dan naikkan ranking kontribusi syariah</p>
                 </div>
             </div>
         </section>
 
-        <section class="section dashboard-section">
-            <div class="container">
-                <div class="dashboard-header">
-                    <div class="user-stats">
-                        <div class="stat-circle level"><div class="level-number">🥇 12</div><div class="level-label">Level Pahala</div></div>
-                        <div class="stat-item"><h3 id="totalPoints">1.250</h3><p>Total Pahala Points</p></div>
-                        <div class="stat-item"><h3 id="streak">7</h3><p>Streak Harian</p></div>
-                    </div>
-                </div>
-                <h2 class="section-title">Achievement Badge</h2>
-                <div class="achievements-grid">
-                    <div class="badge-card unlocked"><div class="badge-icon gold"><i class="fas fa-crown"></i></div><h4>Pahala Harian</h4><p>7 hari berturut-turut</p><div class="badge-date">✅ Dicapai 3 hari lalu</div></div>
-                    <div class="badge-card unlocked"><div class="badge-icon platinum"><i class="fas fa-fire"></i></div><h4>Top Donor Lokal</h4><p>Ranking #1 Kelurahan</p><div class="badge-date">🏆 Minggu ini</div></div>
-                    <div class="badge-card locked"><div class="badge-icon diamond"><i class="fas fa-star"></i></div><h4>Diamond Donor</h4><p>Rp 10 Juta/tahun</p><div class="badge-progress"><div class="progress-small"><div class="progress-fill-small" style="width:65%"></div></div><small>Rp 6,5J / Rp 10J</small></div></div>
-                </div>
-            </div>
-        </section>
+
 
         <section class="section bg-soft-gradient">
             <div class="container">
-                <h2 class="section-title">Leaderboard Lokal</h2>
+                <h2 class="section-title">Leaderboard Kontribusi UMKM</h2>
                 <div class="leaderboard">
-                    <div class="leaderboard-header"><span>Ranking</span><span>Nama</span><span>Points</span><span>Streak</span></div>
-                    <div class="leaderboard-row gold"><div class="rank">🥇 1</div><div class="user"><div class="user-avatar">👳</div><span>Ahmad Fauzi</span></div><div class="points">12.450</div><div class="streak">21🔥</div></div>
-                    <div class="leaderboard-row silver"><div class="rank">🥈 2</div><div class="user"><div class="user-avatar">🧕</div><span>Siti Nurhaliza</span></div><div class="points">9.820</div><div class="streak">14🔥</div></div>
-                    <div class="leaderboard-row bronze"><div class="rank">🥉 3</div><div class="user"><div class="user-avatar">👨</div><span>Muhammad Iqbal</span></div><div class="points">8.750</div><div class="streak">7🔥</div></div>
-                    <div class="leaderboard-row you"><div class="rank">👤 12</div><div class="user"><div class="user-avatar">🧑</div><span>Kamu</span></div><div class="points">1.250</div><div class="streak">7🔥</div></div>
+                    <div class="leaderboard-header"><span>Ranking</span><span>Nama</span><span>Nama UMKM</span><span>Kontribusi</span></div>
+                    <div class="leaderboard-row gold"><div class="rank">🥇 1</div><div class="user"><div class="user-avatar">👳</div><span>hai********</span></div><div class="umkm-name"><span>Pisang Goreng Madu Bu Nanik</span></div><div class="points">12.450</div></div>
+                    <div class="leaderboard-row silver"><div class="rank">🥈 2</div><div class="user"><div class="user-avatar">🧕</div><span>siti********</span></div><div class="umkm-name"><span>Salon Rumahan Iyan</span></div><div class="points">9.820</div></div>
+                    <div class="leaderboard-row bronze"><div class="rank">🥉 3</div><div class="user"><div class="user-avatar">👨</div><span>muha********</span></div><div class="umkm-name"><span>BOSS DIMSUM MEDAN</span></div><div class="points">8.750</div></div>
+                    <div class="leaderboard-row you"><div class="rank">👤 12</div><div class="user"><div class="user-avatar">🧑</div><span>kamu</span></div><div class="umkm-name"><span>UMKM Anda</span></div><div class="points">1.250</div></div>
+
                 </div>
             </div>
         </section>
 
         <section class="section">
             <div class="container">
-                <h2 class="section-title">Weekly Challenges</h2>
-                <div class="challenges-grid">
-                    <div class="challenge-card active"><div class="challenge-header"><i class="fas fa-fire"></i><h4>Sedekah Harian</h4></div><p>Sedekah minimal Rp10.000 setiap hari</p><div class="challenge-progress"><div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div><span>7/7 Hari ✅</span></div><div class="reward">+250 Points</div></div>
-                    <div class="challenge-card"><div class="challenge-header"><i class="fas fa-users"></i><h4>Ajak Teman</h4></div><p>Undang 3 teman join AmanahPay</p><div class="challenge-progress"><div class="progress-bar"><div class="progress-fill" style="width:33%"></div></div><span>1/3 Teman</span></div><div class="reward">+500 Points</div></div>
+                <h2 class="section-title">Pendaftaran Pendanaan UMKM</h2>
+
+                <div class="umkm-form-card">
+                    <form id="umkmFundingForm" class="umkm-form" novalidate>
+                        <div class="umkm-form-grid">
+                            <div class="field-group">
+                                <label for="namaLengkap">Nama lengkap</label>
+                                <input type="text" id="namaLengkap" name="namaLengkap" placeholder="Contoh: Ahmad Fauzi" required>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="nomorHp">Nomer HP</label>
+                                <input type="tel" id="nomorHp" name="nomorHp" placeholder="08xxxxxxxxxx" required>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="nomorKtp">Nomor KTP</label>
+                                <input type="text" id="nomorKtp" name="nomorKtp" placeholder="Contoh: 3201xxxxxxxxxxxx" required>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="alamatEmail">Alamat email</label>
+                                <input type="email" id="alamatEmail" name="alamatEmail" placeholder="email@contoh.com" required>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="tanggalPengajuan">Tanggal pengajuan</label>
+                                <input type="date" id="tanggalPengajuan" name="tanggalPengajuan" required>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="namaUmkm">Nama UMKM</label>
+                                <input type="text" id="namaUmkm" name="namaUmkm" placeholder="Contoh: Warung Mbok Sari" required>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="domisiliIbukota">Domisili (Ibukota tiap provinsi)</label>
+                                <select id="domisiliIbukota" name="domisiliIbukota" required>
+                                    <option value="">Pilih ibukota provinsi</option>
+                                    <option>Jakarta</option>
+                                    <option>Bandung</option>
+                                    <option>Serang</option>
+                                    <option>Semarang</option>
+                                    <option>Yogyakarta</option>
+                                    <option>Surabaya</option>
+                                    <option>Mataram</option>
+                                    <option>Kupang</option>
+                                    <option>Pontianak</option>
+                                    <option>Pangkalpinang</option>
+                                    <option>Banjarmasin</option>
+                                    <option>Palangkaraya</option>
+                                    <option>Palembang</option>
+                                    <option>Jambi</option>
+                                    <option>Padang</option>
+                                    <option>Pekanbaru</option>
+                                    <option>Bengkulu</option>
+                                    <option>Medan</option>
+                                    <option>Aceh</option>
+                                    <option>Pontianak</option>
+                                    <option>Gorontalo</option>
+                                    <option>Ternate</option>
+                                    <option>Manado</option>
+                                    <option>Makassar</option>
+                                    <option>Kendari</option>
+                                    <option>Ambon</option>
+                                    <option>Jayapura</option>
+                                </select>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="alamatLengkap">Alamat lengkap</label>
+                                <textarea id="alamatLengkap" name="alamatLengkap" placeholder="Jalan, Nomor, RT/RW, Kelurahan, Kecamatan, Kota/Kabupaten" rows="4" required></textarea>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="jumlahPegawai">Jumlah pegawai</label>
+                                <input type="number" id="jumlahPegawai" name="jumlahPegawai" min="1" placeholder="Contoh: 5" required>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="tujuanPengajuan">Tujuan pengajuan pendanaan UMKM</label>
+                                <textarea id="tujuanPengajuan" name="tujuanPengajuan" placeholder="Jelaskan kebutuhan/tujuan penggunaan dana" rows="3" required></textarea>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="kebutuhanDana">Masukan jumlah kebutuhan dana UMKM</label>
+                                <input type="text" id="kebutuhanDana" name="kebutuhanDana" placeholder="Contoh: 25000000" required>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="omsetPerbulan">Sebutkan omset perbulan</label>
+                                <input type="text" id="omsetPerbulan" name="omsetPerbulan" placeholder="Contoh: 50000000" required>
+                            </div>
+                        </div>
+
+                        <div class="umkm-form-actions">
+                            <button class="cta-primary" type="button" id="umkmNextStepBtn">Selanjutnya</button>
+                        </div>
+
+                        <div id="umkmFormMessage" class="umkm-form-message" role="status" aria-live="polite" style="display:none;"></div>
+                    </form>
                 </div>
             </div>
         </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Upload Dokumen (Tahap Berikutnya)</h2>
+
+                <div class="umkm-form-card" style="margin-top: 2rem; max-width: 1100px;">
+                    <form id="umkmDokumenForm" class="umkm-form" novalidate>
+                        <div class="umkm-form-grid">
+                            <div class="field-group">
+                                <label for="uploadKtp">Upload KTP</label>
+                                <input type="file" id="uploadKtp" name="uploadKtp" accept="image/*,.pdf" required>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="uploadPasFoto3x4">Pasfoto 3x4</label>
+                                <input type="file" id="uploadPasFoto3x4" name="uploadPasFoto3x4" accept="image/*,.pdf" required>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="uploadFotoUsaha">Foto usaha</label>
+                                <input type="file" id="uploadFotoUsaha" name="uploadFotoUsaha" accept="image/*,.pdf" required>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="uploadSuratPernyataanRtRw">Surat pernyataan dari RT/RW</label>
+                                <input type="file" id="uploadSuratPernyataanRtRw" name="uploadSuratPernyataanRtRw" accept="image/*,.pdf" required>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="uploadSuratPernyataan">Surat pernyataan</label>
+                                <input type="file" id="uploadSuratPernyataan" name="uploadSuratPernyataan" accept="image/*,.pdf" required>
+                            </div>
+
+                            <div class="field-group">
+                                <label for="uploadKartuBank">Kartu bank</label>
+                                <input type="file" id="uploadKartuBank" name="uploadKartuBank" accept="image/*,.pdf" required>
+                            </div>
+                        </div>
+
+                        <div class="umkm-form-actions">
+                            <button class="cta-primary" type="submit">Simpan Upload Dokumen</button>
+                        </div>
+
+                        <div id="umkmDokumenMessage" class="umkm-form-message" role="status" aria-live="polite" style="display:none;"></div>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+
     </main>
 
     <footer>

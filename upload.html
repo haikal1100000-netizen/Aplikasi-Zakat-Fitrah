@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AmanahPay - Upload Dokumen UMKM</title>
+  <meta name="description" content="Ringkasan upload dokumen untuk pendaftaran pendanaan UMKM Syariah AmanahPay.">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+  <header id="header">
+    <nav class="container">
+      <a href="/" class="logo"><i class="fas fa-mosque"></i><span>AmanahPay</span></a>
+      <ul class="nav-links">
+        <li><a href="/" data-page="home" class="nav-link">Beranda</a></li>
+        <li><a href="/calculator" data-page="calculator" class="nav-link">Kalkulator</a></li>
+        <li><a href="/features" data-page="features" class="nav-link">Fitur</a></li>
+        <li><a href="/transparency" data-page="transparency" class="nav-link">Transparansi</a></li>
+        <li><a href="/gamification" data-page="gamification" class="nav-link">Pendanaan UMKM Syariah</a></li>
+      </ul>
+      <div class="mobile-menu" id="mobileMenu"><span></span><span></span><span></span></div>
+    </nav>
+  </header>
+
+  <main id="main-content" class="page-enter-active">
+    <section class="section">
+      <div class="container">
+        <div class="text-center" style="margin-bottom: 1.5rem;">
+          <h1 style="margin: 0;">Upload Dokumen UMKM</h1>
+          <p class="hero-subtitle" style="margin-top: .5rem;">Ringkasan dokumen yang telah Anda upload pada tahap sebelumnya.</p>
+        </div>
+
+        <div class="umkm-form-card" style="max-width: 1000px; margin: 0 auto;">
+          <h2 id="umkmUploadTitle">Ringkasan Upload Dokumen</h2>
+
+          <div id="umkmUploadStatus" class="umkm-form-message" role="status" aria-live="polite" style="display:block; margin-top: .75rem;"></div>
+
+          <div style="margin-top: 1.25rem;">
+            <h3 style="font-size: 1.05rem; margin-bottom: .75rem;">Dokumen yang diterima</h3>
+            <div id="umkmUploadDocsList" style="display:grid; gap: .6rem;"></div>
+          </div>
+
+          <div class="umkm-form-actions" style="margin-top: 1.5rem; justify-content: space-between;">
+            <button class="btn-reset" type="button" id="umkmUploadBackBtn">Kembali</button>
+            <button class="cta-primary" type="button" id="umkmUploadNextBtn">Lanjut Proses</button>
+          </div>
+
+          <p style="margin-top: 1rem; color: var(--text); opacity: .8; font-size: .95rem;">
+            (Demo) Tombol <strong>Lanjut Proses</strong> belum mengirim file ke server.
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-section">
+          <h4><i class="fas fa-mosque"></i> AmanahPay</h4>
+          <p>Ekosistem ekonomi umat berbasis teknologi syariah. Transparan, aman, dan memberdayakan.</p>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <a href="/calculator">Kalkulator Zakat</a>
+          <a href="/features">Fitur Lengkap</a>
+          <a href="/transparency">Tracking Donasi</a>
+        </div>
+        <div class="footer-section">
+          <h4>Perusahaan</h4>
+          <a href="#">Tentang Kami</a>
+          <a href="#">Karir</a>
+          <a href="#">Blog</a>
+          <a href="#">Kontak</a>
+        </div>
+        <div class="footer-section">
+          <h4>Bantuan</h4>
+          <a href="#">FAQ</a>
+          <a href="#">Panduan</a>
+          <a href="#">Laporan Keuangan</a>
+        </div>
+      </div>
+      <div class="social-links">
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+        <a href="#"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2024 AmanahPay. Semua hak dilindungi. <strong>Syariah Compliant</strong></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/script.js"></script>
+</body>
+</html>
+

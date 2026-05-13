@@ -7,8 +7,10 @@ class AmanahPayApp {
             features: 'features.html',
             transparency: 'transparency.html',
             gamification: 'gamification.html',
-            payment: 'payment.html'
+            payment: 'payment.html',
+            upload: 'upload.html'
         };
+
         this.currentPage = 'home';
         this.init();
     }
@@ -16,16 +18,16 @@ class AmanahPayApp {
     async init() {
         // Preload all pages
         await this.preloadPages();
-        
+
         // Bind events
         this.bindEvents();
-        
+
         // Load initial page
         await this.loadPage(window.location.pathname || '/');
-        
+
         // Hide loading
         this.hideLoading();
-        
+
         // Animate stats
         this.animateStats();
     }
@@ -45,11 +47,11 @@ class AmanahPayApp {
 
     async loadPage(path = '/') {
         const pageKey = this.getPageKey(path);
-        
+
         // Show loading state
         document.body.classList.add('loading');
         const main = document.getElementById('main-content');
-        
+
         // Get cached content
         const cachedHTML = window.pageCache?.[pageKey];
         if (!cachedHTML) {
@@ -60,31 +62,31 @@ class AmanahPayApp {
         // Parse HTML
         const parser = new DOMParser();
         const doc = parser.parseFromString(cachedHTML, 'text/html');
-        
+
         // Extract content
         const newMainContent = doc.querySelector('#main-content').innerHTML;
         const newTitle = doc.title;
-        
+
         // Update title & nav
         document.title = newTitle;
         this.updateActiveNav(pageKey);
-        
+
         // Animate transition
         main.style.opacity = '0';
         main.style.transform = 'translateY(20px)';
-        
+
         setTimeout(() => {
             main.innerHTML = newMainContent;
             main.style.opacity = '1';
             main.style.transform = 'translateY(0)';
-            
+
             // Init page
             this.initCurrentPage(pageKey);
-            
+
             document.body.classList.remove('loading');
-            
+
             // Update URL
-            window.history.pushState({page: pageKey}, newTitle, `/${pageKey}`);
+            window.history.pushState({ page: pageKey }, newTitle, `/${pageKey}`);
             this.currentPage = pageKey;
         }, 300);
     }
@@ -126,7 +128,7 @@ class AmanahPayApp {
         // Keyboard shortcuts
         document.addEventListener('keydown', (e) => {
             if (e.ctrlKey || e.metaKey) {
-                switch(e.key) {
+                switch (e.key) {
                     case '1': this.loadPage('/'); break;
                     case '2': this.loadPage('/calculator'); break;
                 }
@@ -135,7 +137,7 @@ class AmanahPayApp {
     }
 
     initCurrentPage(pageKey) {
-        switch(pageKey) {
+        switch (pageKey) {
             case 'calculator':
                 this.initCalculator();
                 break;
@@ -148,13 +150,18 @@ class AmanahPayApp {
             case 'gamification':
                 this.initGamification();
                 break;
+            case 'upload':
+                this.initUmkmUploadPage();
+                break;
             case 'home':
+            default:
                 this.initHomePage();
                 this.animateStats();
                 break;
         }
     }
 
+    // ========== HOME PAGE ==========
     initHomePage() {
         const tabs = document.querySelectorAll('.home-tab');
         const bodies = document.querySelectorAll('.home-tab-body');
@@ -276,6 +283,7 @@ class AmanahPayApp {
         });
     }
 
+    // ========== PAYMENT PAGE ==========
     initPaymentPage() {
         const paymentData = JSON.parse(sessionStorage.getItem('amanahPayPayment') || '{}');
         const defaultAmount = paymentData.amount || 2450000;
@@ -383,6 +391,7 @@ class AmanahPayApp {
             modal.querySelectorAll('.modal-close').forEach(btn => {
                 btn.addEventListener('click', () => modal.remove());
             });
+
             modal.querySelector('.copy-btn')?.addEventListener('click', () => {
                 navigator.clipboard.writeText(selectedMethod.va);
             });
@@ -390,42 +399,271 @@ class AmanahPayApp {
             document.body.appendChild(modal);
         });
     }
-    // Tambah ke AmanahPayApp class
-initTransparency() {
-    // Animate progress bars
-    document.querySelectorAll('.progress-fill').forEach(bar => {
-        const width = bar.style.width;
-        bar.style.width = '0%';
-        setTimeout(() => bar.style.width = width, 500);
-    });
-    
-    // Animate impact numbers
-    const impactNumbers = document.querySelectorAll('.impact-number[data-target]');
-    impactNumbers.forEach(num => {
-        const target = parseInt(num.dataset.target);
-        let current = 0;
-        const increment = target / 50;
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= target) {
-                current = target;
-                clearInterval(timer);
-            }
-            num.textContent = Math.floor(current).toLocaleString();
-        }, 50);
-    });
-}
 
-initGamification() {
-    // Animate leaderboard
-    const leaderboardRows = document.querySelectorAll('.leaderboard-row');
-    leaderboardRows.forEach((row, index) => {
-        setTimeout(() => {
-            row.style.opacity = '1';
-            row.style.transform = 'translateX(0)';
-        }, index * 100);
-    });
-}
+    // ========== TRANSPARENCY ==========
+    initTransparency() {
+        document.querySelectorAll('.progress-fill').forEach(bar => {
+            const width = bar.style.width;
+            bar.style.width = '0%';
+            setTimeout(() => bar.style.width = width, 500);
+        });
+
+        const impactNumbers = document.querySelectorAll('.impact-number[data-target]');
+        impactNumbers.forEach(num => {
+            const target = parseInt(num.dataset.target, 10);
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    current = target;
+                    clearInterval(timer);
+                }
+                num.textContent = Math.floor(current).toLocaleString();
+            }, 50);
+        });
+    }
+
+    // ========== GAMIFICATION (UMKM) ==========
+    initGamification() {
+        // Animate leaderboard rows
+        const leaderboardRows = document.querySelectorAll('.leaderboard-row');
+        leaderboardRows.forEach((row, index) => {
+            setTimeout(() => {
+                row.style.opacity = '1';
+                row.style.transform = 'translateX(0)';
+            }, index * 100);
+        });
+
+        // UMKM Funding Form handler
+        const form = document.getElementById('umkmFundingForm');
+        const messageEl = document.getElementById('umkmFormMessage');
+
+        const setMessage = (type, text) => {
+            if (!messageEl) return;
+            messageEl.style.display = 'block';
+            messageEl.classList.remove('success', 'error');
+            messageEl.classList.add(type);
+            messageEl.textContent = text;
+        };
+
+        const getValue = (id) => document.getElementById(id)?.value?.trim() || '';
+
+        const parseNumberLike = (val) => {
+            const cleaned = (val || '').toString().replace(/[^0-9]/g, '');
+            const num = parseInt(cleaned, 10);
+            return Number.isFinite(num) ? num : 0;
+        };
+
+        const nextBtn = document.getElementById('umkmNextStepBtn');
+
+        const validateStep1 = () => {
+            const requiredIds = [
+                'namaLengkap',
+                'nomorHp',
+                'nomorKtp',
+                'alamatEmail',
+                'tanggalPengajuan',
+                'namaUmkm',
+                'domisiliIbukota',
+                'alamatLengkap',
+                'jumlahPegawai',
+                'tujuanPengajuan',
+                'kebutuhanDana',
+                'omsetPerbulan'
+            ];
+
+            for (const id of requiredIds) {
+                const v = getValue(id);
+                if (!v) {
+                    setMessage('error', 'Lengkapi semua field yang wajib diisi.');
+                    document.getElementById(id)?.focus?.();
+                    return null;
+                }
+            }
+
+            const email = getValue('alamatEmail');
+            const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+            if (!emailOk) {
+                setMessage('error', 'Format alamat email tidak valid.');
+                document.getElementById('alamatEmail')?.focus?.();
+                return null;
+            }
+
+            const nomorHp = getValue('nomorHp');
+            const nomorKtp = getValue('nomorKtp');
+
+            const hpDigits = nomorHp.replace(/\D/g, '');
+            if (hpDigits.length < 10) {
+                setMessage('error', 'Nomor HP terlalu pendek. Pastikan sesuai format.');
+                document.getElementById('nomorHp')?.focus?.();
+                return null;
+            }
+
+            const ktpDigits = nomorKtp.replace(/\D/g, '');
+            if (ktpDigits.length < 12) {
+                setMessage('error', 'Nomor KTP terlalu pendek. Pastikan sesuai format.');
+                document.getElementById('nomorKtp')?.focus?.();
+                return null;
+            }
+
+            const jumlahPegawai = parseNumberLike(getValue('jumlahPegawai'));
+            if (jumlahPegawai <= 0) {
+                setMessage('error', 'Jumlah pegawai harus lebih dari 0.');
+                document.getElementById('jumlahPegawai')?.focus?.();
+                return null;
+            }
+
+            const kebutuhanDana = parseNumberLike(getValue('kebutuhanDana'));
+            if (kebutuhanDana <= 0) {
+                setMessage('error', 'Masukan jumlah kebutuhan dana harus lebih dari 0.');
+                document.getElementById('kebutuhanDana')?.focus?.();
+                return null;
+            }
+
+            const omsetPerbulan = parseNumberLike(getValue('omsetPerbulan'));
+            if (omsetPerbulan <= 0) {
+                setMessage('error', 'Omset perbulan harus lebih dari 0.');
+                document.getElementById('omsetPerbulan')?.focus?.();
+                return null;
+            }
+
+            return {
+                namaLengkap: getValue('namaLengkap'),
+                nomorHp,
+                nomorKtp,
+                alamatEmail: email,
+                tanggalPengajuan: getValue('tanggalPengajuan'),
+                namaUmkm: getValue('namaUmkm'),
+                domisiliIbukota: getValue('domisiliIbukota'),
+                alamatLengkap: getValue('alamatLengkap'),
+                jumlahPegawai,
+                tujuanPengajuan: getValue('tujuanPengajuan'),
+                kebutuhanDana,
+                omsetPerbulan,
+                submittedAt: new Date().toISOString()
+            };
+        };
+
+        nextBtn?.addEventListener('click', () => {
+            const payload = validateStep1();
+            if (!payload) return;
+
+            sessionStorage.setItem('amanahPayUmkmSubmission', JSON.stringify(payload));
+            setMessage('success', 'Data UMKM tersimpan. Lanjut upload dokumen.');
+
+            document.querySelector('input#uploadKtp')?.scrollIntoView?.({ behavior: 'smooth', block: 'center' });
+        });
+
+        form?.addEventListener('submit', (e) => {
+            e.preventDefault();
+        });
+
+        // Step 2 - Dokumen
+        const dokForm = document.getElementById('umkmDokumenForm');
+        const dokMsg = document.getElementById('umkmDokumenMessage');
+
+        const setDokMessage = (type, text) => {
+            if (!dokMsg) return;
+            dokMsg.style.display = 'block';
+            dokMsg.classList.remove('success', 'error');
+            dokMsg.classList.add(type);
+            dokMsg.textContent = text;
+        };
+
+        dokForm?.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const fileFields = [
+                'uploadKtp',
+                'uploadPasFoto3x4',
+                'uploadFotoUsaha',
+                'uploadSuratPernyataanRtRw',
+                'uploadSuratPernyataan',
+                'uploadKartuBank'
+            ];
+
+            for (const id of fileFields) {
+                const el = document.getElementById(id);
+                const file = el?.files?.[0];
+                if (!file) {
+                    setDokMessage('error', 'Lengkapi semua dokumen yang wajib diupload.');
+                    el?.focus?.();
+                    return;
+                }
+            }
+
+            const docsPayload = {
+                uploadKtp: document.getElementById('uploadKtp').files[0].name,
+                uploadPasFoto3x4: document.getElementById('uploadPasFoto3x4').files[0].name,
+                uploadFotoUsaha: document.getElementById('uploadFotoUsaha').files[0].name,
+                uploadSuratPernyataanRtRw: document.getElementById('uploadSuratPernyataanRtRw').files[0].name,
+                uploadSuratPernyataan: document.getElementById('uploadSuratPernyataan').files[0].name,
+                uploadKartuBank: document.getElementById('uploadKartuBank').files[0].name,
+                submittedAt: new Date().toISOString()
+            };
+
+            sessionStorage.setItem('amanahPayUmkmDokumen', JSON.stringify(docsPayload));
+            setDokMessage('success', 'Upload dokumen tersimpan (metadata saja, front-end only).');
+
+            // setelah submit dokumen, lanjut ke page upload (ringkasan dokumen)
+            this.loadPage('/upload');
+        });
+    }
+
+    // ========== UPLOAD PAGE ==========
+    initUmkmUploadPage() {
+        const submission = JSON.parse(sessionStorage.getItem('amanahPayUmkmSubmission') || '{}');
+        const dokumen = JSON.parse(sessionStorage.getItem('amanahPayUmkmDokumen') || '{}');
+
+        const titleEl = document.getElementById('umkmUploadTitle');
+        const statusEl = document.getElementById('umkmUploadStatus');
+        const listEl = document.getElementById('umkmUploadDocsList');
+
+        if (titleEl) titleEl.textContent = 'Ringkasan Upload Dokumen';
+
+        const hasSubmission = Boolean(submission && submission.namaLengkap);
+        const hasDocs = Boolean(dokumen && Object.keys(dokumen).length);
+
+        if (statusEl) {
+            if (hasSubmission && hasDocs) {
+                statusEl.textContent = 'Pendaftaran berhasil disiapkan. Dokumen tersimpan untuk proses berikutnya.';
+                statusEl.classList.remove('error');
+                statusEl.classList.add('success');
+            } else {
+                statusEl.textContent = 'Data belum lengkap. Kembali ke Pendanaan UMKM Syariah untuk mengisi formulir.';
+                statusEl.classList.remove('success');
+                statusEl.classList.add('error');
+            }
+        }
+
+        if (listEl) {
+                    const docEntries = [
+                ['KTP', dokumen.uploadKtp],
+                ['Pasfoto 3x4', dokumen.uploadPasFoto3x4],
+                ['Foto usaha', dokumen.uploadFotoUsaha],
+                ['Surat pernyataan RT/RW', dokumen.uploadSuratPernyataanRtRw],
+                ['Surat pernyataan', dokumen.uploadSuratPernyataan],
+                ['Kartu bank', dokumen.uploadKartuBank]
+            ];
+
+            listEl.innerHTML = docEntries
+                .filter(([, name]) => name)
+                .map(([label, name]) => `
+                    <div class="upload-doc-item">
+                        <span class="upload-doc-label">${label}</span>
+                        <span class="upload-doc-file">${name}</span>
+                    </div>
+                `)
+                .join('');
+        }
+
+        document.getElementById('umkmUploadBackBtn')?.addEventListener('click', () => {
+            this.loadPage('/gamification');
+        });
+    }
+
+    // ========== CALCULATOR ==========
     initCalculator() {
         const tabs = document.querySelectorAll('.calc-tab');
         const contents = document.querySelectorAll('.calc-content');
@@ -465,7 +703,6 @@ initGamification() {
         const nisabThreshold = 85 * 1200000;
         let title = '';
         let desc = '';
-        let totalAssets = 0;
         let zakat = 0;
 
         if (activeTab.id === 'penghasilan') {
@@ -473,7 +710,6 @@ initGamification() {
             const bonus = parseFloat(document.getElementById('incomeBonus')?.value) || 0;
             const annualIncome = monthly * 12 + bonus;
             title = 'Zakat Penghasilan';
-            totalAssets = annualIncome;
             if (annualIncome >= nisabThreshold) {
                 zakat = annualIncome * rate;
                 desc = `Nisab terpenuhi (Rp${nisabThreshold.toLocaleString('id-ID')}). Zakat 2.5% dari penghasilan tahunan Rp${annualIncome.toLocaleString('id-ID')}.`;
@@ -487,7 +723,6 @@ initGamification() {
             const debt = parseFloat(document.getElementById('maalDebt')?.value) || 0;
             const netMaal = Math.max(jewelry + cash + assets - debt, 0);
             title = 'Zakat Maal';
-            totalAssets = netMaal;
             if (netMaal >= nisabThreshold) {
                 zakat = netMaal * rate;
                 desc = `Nisab terpenuhi (Rp${nisabThreshold.toLocaleString('id-ID')}). Zakat 2.5% dari total harta Rp${netMaal.toLocaleString('id-ID')}.`;
@@ -505,11 +740,11 @@ initGamification() {
     animateStats() {
         const stats = document.querySelectorAll('.stat-item h3[data-target]');
         stats.forEach(stat => {
-            const target = parseInt(stat.dataset.target);
+            const target = parseInt(stat.dataset.target, 10);
             const duration = 2000;
             const step = target / (duration / 16);
             let current = 0;
-            
+
             const timer = setInterval(() => {
                 current += step;
                 if (current >= target) {
@@ -523,12 +758,15 @@ initGamification() {
 
     hideLoading() {
         const loading = document.getElementById('loading');
+        if (!loading) return;
         loading.style.opacity = '0';
         setTimeout(() => loading.style.display = 'none', 500);
     }
 
     loadFallback(pageKey) {
-        document.getElementById('main-content').innerHTML = `
+        const main = document.getElementById('main-content');
+        if (!main) return;
+        main.innerHTML = `
             <div style="padding: 5rem 2rem; text-align: center;">
                 <i class="fas fa-exclamation-triangle" style="font-size: 5rem; color: var(--gold); margin-bottom: 2rem;"></i>
                 <h2>Halaman ${pageKey} Belum Tersedia</h2>
@@ -536,19 +774,6 @@ initGamification() {
             </div>
         `;
     }
-}
-
-// Utilities
-function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-        const later = () => {
-            clearTimeout(timeout);
-            func(...args);
-        };
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-    };
 }
 
 function simulatePayment() {
