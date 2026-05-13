@@ -43,14 +43,16 @@
     <!-- MAIN CONTENT -->
     <main id="main-content" class="page-enter-active">
         <section class="home-hero section">
-            <div class="container home-page-grid">
-                <div class="home-card home-info-card">
-                    <span class="eyebrow">BAZNAS</span>
-                    <h1>TUNAIKAN ZAKAT, INFAK, DAN SEDEKAH<br><strong>ANDA DENGAN AMAN DAN MUDAH</strong></h1>
-                    <p class="home-copy">Isi formulir, hitung zakat secara otomatis, dan pilih metode pembayaran yang Anda inginkan dengan cepat.</p>
+            <div class="container home-hero-container">
+                <div class="home-branding">
+                    <div class="baznas-logo">
+                        <span class="baznas-title">BAZNAS</span>
+                        <span class="baznas-subtitle">Badan Amil Zakat Nasional</span>
+                    </div>
+                    <h1 class="main-title">TUNAIKAN ZAKAT, INFAK, DAN SEDEKAH<br>ANDA DENGAN <span>AMAN DAN MUDAH</span></h1>
                 </div>
 
-                <div class="home-card home-form-card">
+                <div class="form-card">
                     <div class="home-tab-header">
                         <button class="home-tab active" data-tab="home-form">Isi Formulir</button>
                         <button class="home-tab" data-tab="home-calculator">Kalkulator</button>
@@ -60,36 +62,62 @@
                         <div class="form-panel">
                             <div class="field-group">
                                 <label>Pilih Jenis Dana</label>
-                                <select id="donationType">
-                                    <option>Zakat</option>
-                                    <option>Infak</option>
-                                    <option>Sedekah</option>
-                                    <option>Fidyah</option>
-                                    <option>Kurban</option>
-                                    <option>Dam Haji</option>
+                                <select id="donationCategory">
+                                    <option value="Zakat">Zakat</option>
+                                    <option value="Infak">Infak</option>
+                                    <option value="Sedekah">Sedekah</option>
+                                    <option value="Fidyah">Fidyah</option>
+                                    <option value="Kurban">Kurban</option>
+                                    <option value="Dam Haji">Dam Haji</option>
                                 </select>
                             </div>
+
+                            <div class="field-group" id="donationItemGroup" style="display:none;">
+                                <label id="donationItemLabel">Pilih Paket</label>
+                                <select id="donationItem"></select>
+                            </div>
+
+                            <div class="field-group" id="donationQuantityGroup" style="display:none;">
+                                <label>Jumlah Hewan Kurban</label>
+                                <select id="donationQuantity">
+                                    <option value="1">1 Ekor</option>
+                                    <option value="2">2 Ekor</option>
+                                    <option value="3">3 Ekor</option>
+                                </select>
+                            </div>
+
                             <div class="field-group">
-                                <label>Masukkan Nominal</label>
-                                <div class="input-prefix">
+                                <label>Atas Nama 1:</label>
+                                <input type="text" id="donationName" placeholder="Nama Lengkap" value="muhammad haikal">
+                            </div>
+
+                            <div class="field-group">
+                                <label>Masukkan Nominal:</label>
+                                <div class="input-prefix" id="donationAmountWrapper">
                                     <span>Rp</span>
-                                    <input type="number" id="homeNominal" placeholder="1000000" min="0">
+                                    <input type="text" id="donationAmount" placeholder="2.450.000">
                                 </div>
                             </div>
+
                             <div class="field-group">
                                 <label>Silahkan lengkapi data di bawah ini:</label>
-                                <input type="text" id="homeName" placeholder="Nama Lengkap" value="muhammad haikal">
+                                <input type="text" id="donationFullName" placeholder="muhammad haikal">
                             </div>
+
                             <div class="gender-toggle">
                                 <label><input type="radio" name="gender" value="Bapak" checked> Bapak</label>
                                 <label><input type="radio" name="gender" value="Ibu"> Ibu</label>
                             </div>
+
                             <div class="field-group">
-                                <input type="tel" id="homePhone" placeholder="082228007990">
+                                <input type="tel" id="donationPhone" placeholder="082228007990">
                             </div>
                             <div class="field-group">
-                                <input type="email" id="homeEmail" placeholder="haikal1100000@gmail.com">
+                                <input type="email" id="donationEmail" placeholder="haikal1100000@gmail.com">
                             </div>
+
+                            <p class="form-note">Dengan mengisi formulir ini, Muzaki menyatakan bahwa zakat yang ditunaikan berasal dari sumber halal yang sesuai dengan peraturan, bukan hasil pencucian uang, dan merupakan harta yang dimiliki secara penuh, serta menyetujui untuk menerima Bukti Setor Zakat (BSZ), laporan penyaluran, dan informasi layanan BAZNAS melalui email dan WhatsApp.</p>
+
                             <button class="cta-primary select-payment-btn">Pilih Pembayaran</button>
                         </div>
                     </div>
@@ -99,9 +127,9 @@
                             <div class="field-group">
                                 <label>Pilih Jenis Zakat</label>
                                 <select id="homeCalcType">
-                                    <option>Zakat Penghasilan</option>
-                                    <option>Zakat Maal</option>
-                                    <option>Zakat Perdagangan</option>
+                                    <option value="Zakat Penghasilan">Zakat Penghasilan</option>
+                                    <option value="Zakat Maal">Zakat Maal</option>
+                                    <option value="Zakat Perdagangan">Zakat Perdagangan</option>
                                 </select>
                             </div>
                             <div class="field-group">
@@ -114,122 +142,9 @@
                             <button class="cta-primary" id="homeCalcBtn">Hitung Zakat</button>
                             <div class="calc-summary" id="homeCalcResultBox" style="display:none;">
                                 <span id="homeCalcResult" class="calc-result-text">Rp 0</span>
-                                <p id="homeCalcDesc" class="calc-result-desc">Zakat 2.5% dari nominal Anda.</p>
+                                <p id="homeCalcDesc" class="calc-result-desc">Perkiraan zakat 2.5% dari nominal Anda.</p>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <div class="home-card home-image-card">
-                    <div class="image-wrapper">
-                        <div class="image-badge">Zakat Menguatkan Indonesia</div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="payment-methods section" id="paymentMethodsSection">
-            <div class="container">
-                <div class="section-intro">
-                    <h2 class="section-title">Metode Pembayaran</h2>
-                    <p class="section-subtitle">Silahkan pilih salah satu metode pembayaran</p>
-                </div>
-                <div class="payment-grid">
-                    <div class="payment-group">
-                        <h3>Virtual Account</h3>
-                        <label class="payment-method selected">
-                            <input type="radio" name="paymentMethod" checked>
-                            <div class="method-label">
-                                <span>BSI Virtual Account</span>
-                                <small>Minimal pembayaran Rp10.000</small>
-                            </div>
-                        </label>
-                        <label class="payment-method">
-                            <input type="radio" name="paymentMethod">
-                            <div class="method-label">
-                                <span>BCA Virtual Account</span>
-                                <small>Menerima transfer dari bank lain</small>
-                            </div>
-                        </label>
-                        <label class="payment-method">
-                            <input type="radio" name="paymentMethod">
-                            <div class="method-label">
-                                <span>Mandiri Virtual Account</span>
-                                <small>Menerima transfer dari bank lain</small>
-                            </div>
-                        </label>
-                        <label class="payment-method">
-                            <input type="radio" name="paymentMethod">
-                            <div class="method-label">
-                                <span>BNI Virtual Account</span>
-                                <small>Menerima transfer dari bank lain</small>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="payment-group">
-                        <h3>Online Payment</h3>
-                        <label class="payment-method">
-                            <input type="radio" name="paymentMethod">
-                            <div class="method-label">
-                                <span>QRIS</span>
-                                <small>Bayar cepat dengan scan QR</small>
-                            </div>
-                        </label>
-                        <label class="payment-method">
-                            <input type="radio" name="paymentMethod">
-                            <div class="method-label">
-                                <span>Gopay</span>
-                                <small>Bayar lewat aplikasi dompet digital</small>
-                            </div>
-                        </label>
-                        <label class="payment-method">
-                            <input type="radio" name="paymentMethod">
-                            <div class="method-label">
-                                <span>ShopeePay</span>
-                                <small>Bayar via e-wallet</small>
-                            </div>
-                        </label>
-                        <label class="payment-method">
-                            <input type="radio" name="paymentMethod">
-                            <div class="method-label">
-                                <span>OVO / Dana</span>
-                                <small>Bayar tanpa ribet</small>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="payment-group">
-                        <h3>Convenience Store</h3>
-                        <label class="payment-method">
-                            <input type="radio" name="paymentMethod">
-                            <div class="method-label">
-                                <span>Indomaret</span>
-                                <small>Bayar langsung di kasir</small>
-                            </div>
-                        </label>
-                        <label class="payment-method">
-                            <input type="radio" name="paymentMethod">
-                            <div class="method-label">
-                                <span>Alfamart</span>
-                                <small>Bayar tanpa kartu</small>
-                            </div>
-                        </label>
-                    </div>
-                    <div class="payment-group">
-                        <h3>Credit / Debit Card</h3>
-                        <label class="payment-method">
-                            <input type="radio" name="paymentMethod">
-                            <div class="method-label">
-                                <span>Credit/Debit Card</span>
-                                <small>Visa, Mastercard, JCB</small>
-                            </div>
-                        </label>
-                        <label class="payment-method">
-                            <input type="radio" name="paymentMethod">
-                            <div class="method-label">
-                                <span>PayPal</span>
-                                <small>Bayar internasional</small>
-                            </div>
-                        </label>
                     </div>
                 </div>
             </div>

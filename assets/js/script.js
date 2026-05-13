@@ -154,27 +154,90 @@ class AmanahPayApp {
     initHomePage() {
         const tabs = document.querySelectorAll('.home-tab');
         const bodies = document.querySelectorAll('.home-tab-body');
-        const methods = document.querySelectorAll('.payment-method input[type="radio"]');
+        const donationCategory = document.getElementById('donationCategory');
+        const donationItemGroup = document.getElementById('donationItemGroup');
+        const donationItemLabel = document.getElementById('donationItemLabel');
+        const donationItem = document.getElementById('donationItem');
+        const donationQuantityGroup = document.getElementById('donationQuantityGroup');
+        const donationQuantity = document.getElementById('donationQuantity');
+        const donationAmount = document.getElementById('donationAmount');
+
+        const donationItems = {
+            Kurban: [
+                { label: 'Domba/Kambing Standar (21-26 kg) Rp2,45jt', value: 2450000 },
+                { label: 'Domba/Kambing Medium (27-29 kg) Rp2,9jt', value: 2900000 },
+                { label: 'Domba/Kambing Premium (30-33 kg) Rp3,1jt', value: 3100000 },
+                { label: 'Sapi 1/7 (250-300 kg) Rp3jt', value: 3000000 },
+                { label: 'Sapi (250-300 kg) Rp2,1jt', value: 2100000 }
+            ],
+            Sedekah: [
+                { label: 'Sedekah Palestina', value: 500000 },
+                { label: 'Sedekah Dunia Islam', value: 250000 },
+                { label: 'Sedekah BAZNAS', value: 150000 },
+                { label: 'Sedekah Bencana', value: 200000 },
+                { label: 'Sedekah Daging', value: 350000 }
+            ]
+        };
+
+        function formatNumber(value) {
+            return new Intl.NumberFormat('id-ID').format(value);
+        }
+
+        const donationAmountWrapper = document.getElementById('donationAmountWrapper');
+
+        function updateDonationInputs() {
+            const category = donationCategory.value;
+            if (category === 'Kurban' || category === 'Sedekah') {
+                donationItemGroup.style.display = 'block';
+                donationItem.innerHTML = donationItems[category].map(item => `
+                    <option value="${item.value}">${item.label}</option>
+                `).join('');
+                donationItemLabel.textContent = category === 'Kurban' ? 'Pilih Paket Kurban' : 'Pilih Program Sedekah';
+                donationQuantityGroup.style.display = category === 'Kurban' ? 'block' : 'none';
+                donationQuantity.value = '1';
+                donationAmount.readOnly = true;
+                donationAmountWrapper.classList.add('disabled');
+                updateDonationAmount();
+            } else {
+                donationItemGroup.style.display = 'none';
+                donationQuantityGroup.style.display = 'none';
+                donationAmount.readOnly = false;
+                donationAmountWrapper.classList.remove('disabled');
+                donationAmount.value = '';
+            }
+        }
+
+        function updateDonationAmount() {
+            const category = donationCategory.value;
+            if (category === 'Kurban') {
+                const unit = parseInt(donationQuantity.value, 10) || 1;
+                const itemPrice = parseInt(donationItem.value, 10) || 0;
+                donationAmount.value = formatNumber(itemPrice * unit);
+            } else if (category === 'Sedekah') {
+                const itemPrice = parseInt(donationItem.value, 10) || 0;
+                donationAmount.value = formatNumber(itemPrice);
+            }
+        }
 
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 tabs.forEach(item => item.classList.remove('active'));
                 bodies.forEach(body => body.classList.remove('active'));
-
                 tab.classList.add('active');
                 document.getElementById(tab.dataset.tab)?.classList.add('active');
             });
         });
 
-        methods.forEach(input => {
-            input.addEventListener('change', () => {
-                methods.forEach(item => item.closest('.payment-method')?.classList.remove('selected'));
-                input.closest('.payment-method')?.classList.add('selected');
-            });
-        });
+        donationCategory?.addEventListener('change', updateDonationInputs);
+        donationItem?.addEventListener('change', updateDonationAmount);
+        donationQuantity?.addEventListener('change', updateDonationAmount);
+
+        updateDonationInputs();
 
         document.querySelector('.select-payment-btn')?.addEventListener('click', () => {
-            document.getElementById('paymentMethodsSection')?.scrollIntoView({ behavior: 'smooth' });
+            const amount = donationAmount.value || '0';
+            const category = donationCategory.value;
+            alert(`Lanjutkan ke pembayaran untuk ${category} dengan nominal Rp${amount}`);
         });
 
         document.getElementById('homeCalcBtn')?.addEventListener('click', () => {
