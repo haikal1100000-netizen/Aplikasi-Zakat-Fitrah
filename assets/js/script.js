@@ -145,9 +145,45 @@ class AmanahPayApp {
                 this.initGamification();
                 break;
             case 'home':
+                this.initHomePage();
                 this.animateStats();
                 break;
         }
+    }
+
+    initHomePage() {
+        const tabs = document.querySelectorAll('.home-tab');
+        const bodies = document.querySelectorAll('.home-tab-body');
+        const methods = document.querySelectorAll('.payment-method input[type="radio"]');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(item => item.classList.remove('active'));
+                bodies.forEach(body => body.classList.remove('active'));
+
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab)?.classList.add('active');
+            });
+        });
+
+        methods.forEach(input => {
+            input.addEventListener('change', () => {
+                methods.forEach(item => item.closest('.payment-method')?.classList.remove('selected'));
+                input.closest('.payment-method')?.classList.add('selected');
+            });
+        });
+
+        document.querySelector('.select-payment-btn')?.addEventListener('click', () => {
+            document.getElementById('paymentMethodsSection')?.scrollIntoView({ behavior: 'smooth' });
+        });
+
+        document.getElementById('homeCalcBtn')?.addEventListener('click', () => {
+            const value = parseFloat(document.getElementById('homeCalcValue')?.value) || 0;
+            const amount = value * 0.025;
+            document.getElementById('homeCalcResult').textContent = new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR' }).format(amount);
+            document.getElementById('homeCalcDesc').textContent = 'Perkiraan zakat 2.5% dari nominal Anda.';
+            document.getElementById('homeCalcResultBox').style.display = 'block';
+        });
     }
     // Tambah ke AmanahPayApp class
 initTransparency() {
