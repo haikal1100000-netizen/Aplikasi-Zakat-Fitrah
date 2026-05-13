@@ -3,28 +3,36 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AmanahPay - Zakat Digital Syariah Lengkap</title>
+    <title>AmanahPay - Zakat Digital Syariah</title>
+    <meta name="description" content="AmanahPay - Platform Zakat, Infak, Sedekah digital syariah dengan transparansi 100% dan pemberdayaan UMKM">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+    <!-- LOADING SCREEN -->
+    <div id="loading" class="loading-screen">
+        <div class="loader">
+            <i class="fas fa-mosque"></i>
+            <p>Loading AmanahPay...</p>
+        </div>
+    </div>
+
     <!-- HEADER -->
     <header id="header">
-        <nav>
-            <a href="#" class="logo">
+        <nav class="container">
+            <a href="/" class="logo">
                 <i class="fas fa-mosque"></i>
-                AmanahPay
+                <span>AmanahPay</span>
             </a>
             <ul class="nav-links">
-                <li><a href="#home">Beranda</a></li>
-                <li><a href="#features">Fitur</a></li>
-                <li><a href="#calculator">Kalkulator</a></li>
-                <li><a href="#transparency">Transparansi</a></li>
-                <li><a href="#gamification">Gamifikasi</a></li>
-                <li><a href="#download">Download</a></li>
+                <li><a href="/" data-page="home" class="nav-link active">Beranda</a></li>
+                <li><a href="/calculator" data-page="calculator" class="nav-link">Kalkulator</a></li>
+                <li><a href="/features" data-page="features" class="nav-link">Fitur</a></li>
+                <li><a href="/transparency" data-page="transparency" class="nav-link">Transparansi</a></li>
+                <li><a href="/gamification" data-page="gamification" class="nav-link">Gamifikasi</a></li>
             </ul>
-            <div class="mobile-menu">
+            <div class="mobile-menu" id="mobileMenu">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -32,301 +40,79 @@
         </nav>
     </header>
 
-    <!-- HERO -->
-    <section id="home" class="hero">
-        <div class="hero-content">
-            <h1>AmanahPay</h1>
-            <p class="hero-subtitle">Zakat • Infak • Sedekah Digital Syariah<br>
-            <strong>Transparan 100% • Pemberdayaan UMKM • Ekosistem Umat</strong></p>
-            <div class="cta-buttons">
-                <a href="#calculator" class="cta-primary">
-                    <i class="fas fa-calculator"></i>
-                    Hitung Zakat
-                </a>
-                <a href="#download" class="cta-secondary">
-                    <i class="fas fa-download"></i>
-                    Download App
-                </a>
-            </div>
-        </div>
-        <div class="stats">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <h3>1M+</h3>
-                    <p>Pengguna Aktif</p>
-                </div>
-                <div class="stat-item">
-                    <h3>Rp 5T</h3>
-                    <p>Dana Tersalur</p>
-                </div>
-                <div class="stat-item">
-                    <h3>50K+</h3>
-                    <p>UMKM Terbantu</p>
-                </div>
-                <div class="stat-item">
-                    <h3>99.9%</h3>
-                    <p>Transparansi</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FEATURES -->
-    <section id="features" class="section">
-        <div class="container">
-            <h2 class="section-title">Fitur Unggulan AmanahPay</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-mobile-alt"></i>
-                    </div>
-                    <h3>Pembayaran ZIS Instan</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check"></i> QRIS • E-Wallet • Transfer</li>
-                        <li><i class="fas fa-check"></i> Zakat Maal • Penghasilan</li>
-                        <li><i class="fas fa-check"></i> Infak Harian • Wakaf Digital</li>
-                        <li><i class="fas fa-check"></i> Proses <strong>30 detik</strong></li>
-                    </ul>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-robot"></i>
-                    </div>
-                    <h3>Kalkulator Zakat AI</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check"></i> Nisab emas terkini</li>
-                        <li><i class="fas fa-check"></i> Penghasilan 2,5%</li>
-                        <li><i class="fas fa-check"></i> Simulasi visual</li>
-                        <li><i class="fas fa-check"></i> Reminder otomatis</li>
-                    </ul>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-eye"></i>
-                    </div>
-                    <h3>Transparansi Blockchain</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check"></i> Tracking real-time</li>
-                        <li><i class="fas fa-check"></i> Foto/video before-after</li>
-                        <li><i class="fas fa-check"></i> Laporan audited</li>
-                        <li><i class="fas fa-check"></i> Sertifikat digital</li>
-                    </ul>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-hand-holding-usd"></i>
-                    </div>
-                    <h3>Pendanaan UMKM Syariah</h3>
-                    <ul class="feature-list">
-                        <li><i class="fas fa-check"></i> Mudharabah • Murabahah</li>
-                        <li><i class="fas fa-check"></i> Petani • Pedagang</li>
-                        <li><i class="fas fa-check"></i> Bagi hasil tanpa riba</li>
-                        <li><i class="fas fa-check"></i> Pemberdayaan mandiri</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- CALCULATOR -->
-    <section id="calculator" class="section calculator-section">
-        <div class="container">
-            <div class="calculator-container">
-                <h2 class="section-title" style="margin-bottom: 1rem;">Kalkulator Zakat Syariah</h2>
-                <div class="calc-tabs">
-                    <button class="calc-tab active" onclick="switchTab('penghasilan')">
-                        <i class="fas fa-briefcase"></i> Penghasilan
-                    </button>
-                    <button class="calc-tab" onclick="switchTab('maal')">
-                        <i class="fas fa-coins"></i> Maal/Emas
-                    </button>
-                    <button class="calc-tab" onclick="switchTab('perdagangan')">
-                        <i class="fas fa-store"></i> Perdagangan
-                    </button>
-                </div>
-
-                <!-- Penghasilan -->
-                <div id="penghasilan" class="calc-content active">
-                    <div class="calc-input-group">
-                        <label>Penghasilan Bersih Bulanan</label>
-                        <div class="calc-input-wrapper">
-                            <input type="number" id="income" placeholder="Rp 10.000.000" value="10000000">
-                            <i class="fas fa-rupee-sign input-icon"></i>
-                        </div>
-                    </div>
-                    <div class="calc-buttons">
-                        <button onclick="calculateZakat('penghasilan')" class="cta-primary">
-                            <i class="fas fa-calculator"></i> Hitung Zakat
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Maal -->
-                <div id="maal" class="calc-content">
-                    <div class="calc-input-group">
-                        <label>Nilai Tabungan/Emas (gram)</label>
-                        <div class="calc-input-wrapper">
-                            <input type="number" id="gold" placeholder="85 gram" value="85">
-                            <i class="fas fa-coins input-icon"></i>
-                        </div>
-                    </div>
-                    <div class="calc-input-group">
-                        <label>Harga Emas/gram (Rp)</label>
-                        <div class="calc-input-wrapper">
-                            <input type="number" id="goldPrice" placeholder="Rp 1.200.000" value="1200000">
-                            <i class="fas fa-tag input-icon"></i>
-                        </div>
-                    </div>
-                    <div class="calc-buttons">
-                        <button onclick="calculateZakat('maal')" class="cta-primary">
-                            <i class="fas fa-calculator"></i> Hitung Zakat
-                        </button>
-                    </div>
-                </div>
-
-                <!-- Perdagangan -->
-                <div id="perdagangan" class="calc-content">
-                    <div class="calc-input-group">
-                        <label>Nilai Stok Dagangan</label>
-                        <div class="calc-input-wrapper">
-                            <input type="number" id="trade" placeholder="Rp 50.000.000" value="50000000">
-                            <i class="fas fa-boxes input-icon"></i>
-                        </div>
-                    </div>
-                    <div class="calc-buttons">
-                        <button onclick="calculateZakat('perdagangan')" class="cta-primary">
-                            <i class="fas fa-calculator"></i> Hitung Zakat
-                        </button>
-                    </div>
-                </div>
-
-                <div id="calcResult" class="calc-result" style="display: none;">
-                    <div id="resultTitle"></div>
-                    <div id="zakatAmount" class="zakat-amount">Rp 0</div>
-                    <div id="resultDesc"></div>
-                    <button onclick="payZakat()" class="cta-primary" style="margin-top: 1.5rem; padding: 15px 30px;">
-                        <i class="fas fa-qrcode"></i> Bayar via QRIS
-                    </button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TRANSPARENCY -->
-    <section id="transparency" class="section transparency-section">
-        <div class="container">
-            <h2 class="section-title">Transparansi Penyaluran 100%</h2>
-            <div class="map-container">
-                <div class="map-placeholder">
-                    <i class="fas fa-map-marked-alt"></i>
-                    <h3>Peta Distribusi Real-time</h3>
-                    <p>500+ lokasi penerima di seluruh Indonesia</p>
-                </div>
-            </div>
-            <div class="tracking-grid">
-                <div class="donation-track">
-                    <div class="track-header">
-                        <div class="track-icon umkm">
-                            <i class="fas fa-store"></i>
-                        </div>
-                        <div>
-                            <h3>Rp 50.000 → Warung Mbok Sari</h3>
-                            <span class="track-status">Tersalur 100%</span>
-                        </div>
-                    </div>
-                    <div class="track-amount">Semarang, Jawa Tengah</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 100%"></div>
-                    </div>
-                    <p><strong>Impact:</strong> 5 karyawan • Penjualan +40%</p>
-                </div>
-                <div class="donation-track">
-                    <div class="track-header">
-                        <div class="track-icon petani">
-                            <i class="fas fa-seedling"></i>
-                        </div>
-                        <div>
-                            <h3>Rp 100.000 → Petani Organik</h3>
-                            <span class="track-status">Progress 85%</span>
-                        </div>
-                    </div>
-                    <div class="track-amount">Banyuwangi, Jatim</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 85%"></div>
-                    </div>
-                    <p><strong>Skema:</strong> Mudharabah (bagi hasil)</p>
-                </div>
-                <div class="donation-track">
-                    <div class="track-header">
-                        <div class="track-icon anak-yatim">
-                            <i class="fas fa-child"></i>
-                        </div>
-                        <div>
-                            <h3>Rp 25.000 → Anak Yatim</h3>
-                            <span class="track-status">Tersalur 100%</span>
-                        </div>
-                    </div>
-                    <div class="track-amount">Papua</div>
-                    <div class="progress-bar">
-                        <div class="progress-fill" style="width: 100%"></div>
-                    </div>
-                    <p><strong>Program:</strong> Beasiswa tahfidz</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- GAMIFICATION -->
-    <section id="gamification" class="section gamification-section">
-        <div class="container">
-            <h2 class="section-title" style="color: var(--white);">Gamifikasi Ibadah</h2>
-            <div class="gamification-grid">
-                <div class="badge-card">
-                    <div class="badge-icon">
-                        <i class="fas fa-crown"></i>
-                    </div>
-                    <h3>Pahala Harian</h3>
-                    <p>Streak 7 hari berturut-turut<br><strong>Badge Emas</strong></p>
-                </div>
-                <div class="badge-card">
-                    <div class="badge-icon">
-                        <i class="fas fa-fire"></i>
-                    </div>
-                    <h3>Top Donor Lokal</h3>
-                    <p>Ranking 1 mingguan<br><strong>Badge Platinum</strong></p>
-                </div>
-                <div class="badge-card">
-                    <div class="badge-icon">
-                        <i class="fas fa-trophy"></i>
-                    </div>
-                    <h3>Ramadhan Superstar</h3>
-                    <p>Target zakat Ramadhan tercapai<br><strong>Badge Diamond</strong></p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- DOWNLOAD -->
-    <section id="download" class="section download-section">
-        <div class="container">
-            <div class="download-content">
-                <h2 class="section-title">Download Sekarang</h2>
-                <p style="font-size: 1.3rem; margin-bottom: 2rem; color: var(--gray);">
-                    Tersedia di App Store & Play Store
+    <!-- MAIN CONTENT -->
+    <main id="main-content" class="page-enter-active">
+        <!-- HOME PAGE CONTENT -->
+        <section class="hero">
+            <div class="hero-content container">
+                <h1>AmanahPay</h1>
+                <p class="hero-subtitle">
+                    Zakat • Infak • Sedekah Digital Syariah<br>
+                    <strong>Transparan 100% • Pemberdayaan UMKM • Ekosistem Umat</strong>
                 </p>
-                <div class="stores">
-                    <a href="#" class="store-btn play-store">
-                        <i class="fab fa-google-play"></i>
-                        Google Play
+                <div class="cta-buttons">
+                    <a href="/calculator" class="cta-primary">
+                        <i class="fas fa-calculator"></i> Hitung Zakat
                     </a>
-                    <a href="#" class="store-btn app-store">
-                        <i class="fab fa-apple"></i>
-                        App Store
+                    <a href="/features" class="cta-secondary">
+                        <i class="fas fa-rocket"></i> Lihat Fitur
                     </a>
                 </div>
             </div>
-        </div>
-    </section>
+            <div class="stats">
+                <div class="stats-grid container">
+                    <div class="stat-item">
+                        <h3 data-target="1000000">0</h3>
+                        <p>Pengguna Aktif</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 data-target="5000000000000">0</h3>
+                        <p>Dana Tersalur</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3 data-target="50000">0</h3>
+                        <p>UMKM Terbantu</p>
+                    </div>
+                    <div class="stat-item">
+                        <h3>99.9%</h3>
+                        <p>Transparansi</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="features-preview section">
+            <div class="container">
+                <h2 class="section-title">Fitur Unggulan</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-calculator"></i>
+                        </div>
+                        <h3>Kalkulator Zakat AI</h3>
+                        <p>Hitung otomatis nisab terkini untuk emas, tabungan, perdagangan</p>
+                        <a href="/calculator" class="btn-link">Coba Sekarang →</a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3>Tracking Real-time</h3>
+                        <p>Lihat dana Anda membantu siapa, di mana, dan dampaknya</p>
+                        <a href="/transparency" class="btn-link">Lihat Demo →</a>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-trophy"></i>
+                        </div>
+                        <h3>Gamifikasi Ibadah</h3>
+                        <p>Dapatkan badge kebaikan dan masuk leaderboard lokal</p>
+                        <a href="/gamification" class="btn-link">Lihat Badge →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- FOOTER -->
     <footer>
@@ -337,11 +123,10 @@
                     <p>Ekosistem ekonomi umat berbasis teknologi syariah. Transparan, aman, dan memberdayakan.</p>
                 </div>
                 <div class="footer-section">
-                    <h4>Fitur</h4>
-                    <a href="#">Pembayaran ZIS</a>
-                    <a href="#">Kalkulator Zakat</a>
-                    <a href="#">Tracking Donasi</a>
-                    <a href="#">UMKM Syariah</a>
+                    <h4>Quick Links</h4>
+                    <a href="/calculator">Kalkulator Zakat</a>
+                    <a href="/features">Fitur Lengkap</a>
+                    <a href="/transparency">Tracking Donasi</a>
                 </div>
                 <div class="footer-section">
                     <h4>Perusahaan</h4>
@@ -355,7 +140,6 @@
                     <a href="#">FAQ</a>
                     <a href="#">Panduan</a>
                     <a href="#">Laporan Keuangan</a>
-                    <a href="#">Syarat & Ketentuan</a>
                 </div>
             </div>
             <div class="social-links">
@@ -364,13 +148,12 @@
                 <a href="#"><i class="fab fa-youtube"></i></a>
                 <a href="#"><i class="fab fa-whatsapp"></i></a>
             </div>
-            <div style="text-align: center; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.1);">
+            <div class="footer-bottom">
                 <p>&copy; 2024 AmanahPay. Semua hak dilindungi. <strong>Syariah Compliant</strong></p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="assets/js/script.js"></script>
 </body>
 </html>
-

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AmanahPay - Gamifikasi</title>
+    <meta name="description" content="Halaman gamifikasi AmanahPay untuk badge kebaikan, leaderboard, dan misi ibadah.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header id="header">
+        <nav class="container">
+            <a href="/" class="logo"><i class="fas fa-mosque"></i><span>AmanahPay</span></a>
+            <ul class="nav-links">
+                <li><a href="/" data-page="home" class="nav-link">Beranda</a></li>
+                <li><a href="/calculator" data-page="calculator" class="nav-link">Kalkulator</a></li>
+                <li><a href="/features" data-page="features" class="nav-link">Fitur</a></li>
+                <li><a href="/transparency" data-page="transparency" class="nav-link">Transparansi</a></li>
+                <li><a href="/gamification" data-page="gamification" class="nav-link active">Gamifikasi</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu"><span></span><span></span><span></span></div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="page-enter-active">
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content text-center">
+                    <h1><i class="fas fa-trophy"></i> Gamifikasi Ibadah</h1>
+                    <p class="hero-subtitle">Kumpulkan badge kebaikan dan masuk leaderboard umat</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section dashboard-section">
+            <div class="container">
+                <div class="dashboard-header">
+                    <div class="user-stats">
+                        <div class="stat-circle level"><div class="level-number">🥇 12</div><div class="level-label">Level Pahala</div></div>
+                        <div class="stat-item"><h3 id="totalPoints">1.250</h3><p>Total Pahala Points</p></div>
+                        <div class="stat-item"><h3 id="streak">7</h3><p>Streak Harian</p></div>
+                    </div>
+                </div>
+                <h2 class="section-title">Achievement Badge</h2>
+                <div class="achievements-grid">
+                    <div class="badge-card unlocked"><div class="badge-icon gold"><i class="fas fa-crown"></i></div><h4>Pahala Harian</h4><p>7 hari berturut-turut</p><div class="badge-date">✅ Dicapai 3 hari lalu</div></div>
+                    <div class="badge-card unlocked"><div class="badge-icon platinum"><i class="fas fa-fire"></i></div><h4>Top Donor Lokal</h4><p>Ranking #1 Kelurahan</p><div class="badge-date">🏆 Minggu ini</div></div>
+                    <div class="badge-card locked"><div class="badge-icon diamond"><i class="fas fa-star"></i></div><h4>Diamond Donor</h4><p>Rp 10 Juta/tahun</p><div class="badge-progress"><div class="progress-small"><div class="progress-fill-small" style="width:65%"></div></div><small>Rp 6,5J / Rp 10J</small></div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: linear-gradient(135deg, #f8f9ff 0%, #e8f0fe 100%);">
+            <div class="container">
+                <h2 class="section-title">Leaderboard Lokal</h2>
+                <div class="leaderboard">
+                    <div class="leaderboard-header"><span>Ranking</span><span>Nama</span><span>Points</span><span>Streak</span></div>
+                    <div class="leaderboard-row gold"><div class="rank">🥇 1</div><div class="user"><div class="user-avatar">👳</div><span>Ahmad Fauzi</span></div><div class="points">12.450</div><div class="streak">21🔥</div></div>
+                    <div class="leaderboard-row silver"><div class="rank">🥈 2</div><div class="user"><div class="user-avatar">🧕</div><span>Siti Nurhaliza</span></div><div class="points">9.820</div><div class="streak">14🔥</div></div>
+                    <div class="leaderboard-row bronze"><div class="rank">🥉 3</div><div class="user"><div class="user-avatar">👨</div><span>Muhammad Iqbal</span></div><div class="points">8.750</div><div class="streak">7🔥</div></div>
+                    <div class="leaderboard-row you"><div class="rank">👤 12</div><div class="user"><div class="user-avatar">🧑</div><span>Kamu</span></div><div class="points">1.250</div><div class="streak">7🔥</div></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Weekly Challenges</h2>
+                <div class="challenges-grid">
+                    <div class="challenge-card active"><div class="challenge-header"><i class="fas fa-fire"></i><h4>Sedekah Harian</h4></div><p>Sedekah minimal Rp10.000 setiap hari</p><div class="challenge-progress"><div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div><span>7/7 Hari ✅</span></div><div class="reward">+250 Points</div></div>
+                    <div class="challenge-card"><div class="challenge-header"><i class="fas fa-users"></i><h4>Ajak Teman</h4></div><p>Undang 3 teman join AmanahPay</p><div class="challenge-progress"><div class="progress-bar"><div class="progress-fill" style="width:33%"></div></div><span>1/3 Teman</span></div><div class="reward">+500 Points</div></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4><i class="fas fa-mosque"></i> AmanahPay</h4>
+                    <p>Ekosistem ekonomi umat berbasis teknologi syariah. Transparan, aman, dan memberdayakan.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="/calculator">Kalkulator Zakat</a>
+                    <a href="/features">Fitur Lengkap</a>
+                    <a href="/transparency">Tracking Donasi</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Perusahaan</h4>
+                    <a href="#">Tentang Kami</a>
+                    <a href="#">Karir</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Kontak</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Bantuan</h4>
+                    <a href="#">FAQ</a>
+                    <a href="#">Panduan</a>
+                    <a href="#">Laporan Keuangan</a>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AmanahPay. Semua hak dilindungi. <strong>Syariah Compliant</strong></p>
+            </div>
+        </div>
+    </footer>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AmanahPay - Kalkulator Zakat</title>
+    <meta name="description" content="Kalkulator zakat syariah AmanahPay untuk penghasilan, emas, dan perdagangan.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header id="header">
+        <nav class="container">
+            <a href="/" class="logo"><i class="fas fa-mosque"></i><span>AmanahPay</span></a>
+            <ul class="nav-links">
+                <li><a href="/" data-page="home" class="nav-link">Beranda</a></li>
+                <li><a href="/calculator" data-page="calculator" class="nav-link active">Kalkulator</a></li>
+                <li><a href="/features" data-page="features" class="nav-link">Fitur</a></li>
+                <li><a href="/transparency" data-page="transparency" class="nav-link">Transparansi</a></li>
+                <li><a href="/gamification" data-page="gamification" class="nav-link">Gamifikasi</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu"><span></span><span></span><span></span></div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="page-enter-active">
+        <section class="hero calculator-hero">
+            <div class="container">
+                <div class="hero-content text-center">
+                    <h1><i class="fas fa-calculator"></i> Kalkulator Zakat</h1>
+                    <p class="hero-subtitle">Hitung zakat Anda secara otomatis dan akurat sesuai syariah</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="calculator-section section">
+            <div class="container">
+                <div class="calculator-container">
+                    <div class="calc-tabs">
+                        <button class="calc-tab active" data-tab="penghasilan">
+                            <i class="fas fa-briefcase"></i> Penghasilan
+                        </button>
+                        <button class="calc-tab" data-tab="maal">
+                            <i class="fas fa-coins"></i> Maal/Emas
+                        </button>
+                        <button class="calc-tab" data-tab="perdagangan">
+                            <i class="fas fa-store"></i> Perdagangan
+                        </button>
+                    </div>
+
+                    <div class="calc-content active" id="penghasilan">
+                        <div class="calc-input-group">
+                            <label>Penghasilan Bersih Bulanan</label>
+                            <input type="number" id="income" placeholder="Rp 10.000.000" value="10000000">
+                        </div>
+                    </div>
+
+                    <div class="calc-content" id="maal">
+                        <div class="calc-input-group">
+                            <label>Emas (gram)</label>
+                            <input type="number" id="gold" placeholder="85" value="85">
+                        </div>
+                        <div class="calc-input-group">
+                            <label>Harga Emas/gram</label>
+                            <input type="number" id="goldPrice" placeholder="Rp 1.200.000" value="1200000">
+                        </div>
+                    </div>
+
+                    <div class="calc-content" id="perdagangan">
+                        <div class="calc-input-group">
+                            <label>Nilai Stok Dagangan</label>
+                            <input type="number" id="trade" placeholder="Rp 50.000.000" value="50000000">
+                        </div>
+                    </div>
+
+                    <div id="calcResult" class="calc-result" style="display:none;">
+                        <h3 id="resultTitle">Zakat Anda</h3>
+                        <div id="zakatAmount" class="zakat-amount">Rp 0</div>
+                        <p id="resultDesc" class="result-desc" style="margin:0.5rem 0 0; color: #1e3c72;"></p>
+                        <button class="cta-primary pay-btn" onclick="simulatePayment()" style="margin-top:1.5rem;">
+                            <i class="fas fa-qrcode"></i> Bayar Zakat
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4><i class="fas fa-mosque"></i> AmanahPay</h4>
+                    <p>Ekosistem ekonomi umat berbasis teknologi syariah. Transparan, aman, dan memberdayakan.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="/calculator">Kalkulator Zakat</a>
+                    <a href="/features">Fitur Lengkap</a>
+                    <a href="/transparency">Tracking Donasi</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Perusahaan</h4>
+                    <a href="#">Tentang Kami</a>
+                    <a href="#">Karir</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Kontak</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Bantuan</h4>
+                    <a href="#">FAQ</a>
+                    <a href="#">Panduan</a>
+                    <a href="#">Laporan Keuangan</a>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AmanahPay. Semua hak dilindungi. <strong>Syariah Compliant</strong></p>
+            </div>
+        </div>
+    </footer>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>

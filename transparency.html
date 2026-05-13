@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AmanahPay - Transparansi</title>
+    <meta name="description" content="Transparansi penyaluran donasi AmanahPay dengan tracking real-time, peta distribusi, dan impact report.">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+    <header id="header">
+        <nav class="container">
+            <a href="/" class="logo"><i class="fas fa-mosque"></i><span>AmanahPay</span></a>
+            <ul class="nav-links">
+                <li><a href="/" data-page="home" class="nav-link">Beranda</a></li>
+                <li><a href="/calculator" data-page="calculator" class="nav-link">Kalkulator</a></li>
+                <li><a href="/features" data-page="features" class="nav-link">Fitur</a></li>
+                <li><a href="/transparency" data-page="transparency" class="nav-link active">Transparansi</a></li>
+                <li><a href="/gamification" data-page="gamification" class="nav-link">Gamifikasi</a></li>
+            </ul>
+            <div class="mobile-menu" id="mobileMenu"><span></span><span></span><span></span></div>
+        </nav>
+    </header>
+
+    <main id="main-content" class="page-enter-active">
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content text-center">
+                    <h1><i class="fas fa-eye"></i> Transparansi 100%</h1>
+                    <p class="hero-subtitle">Lacak donasi Anda secara real-time sampai ke tangan penerima</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section map-section">
+            <div class="container">
+                <div class="map-container" id="donationMap">
+                    <div class="map-placeholder">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <h3>Peta Distribusi Nasional</h3>
+                        <p>Real-time tracking 500+ lokasi penerima</p>
+                        <div class="map-stats">
+                            <span><strong>2.450</strong> Penerima Bulan Ini</span>
+                            <span><strong>Rp 45M</strong> Tersalur 24 Jam Terakhir</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <div class="container">
+                <h2 class="section-title">Live Donation Tracking</h2>
+                <div class="tracking-grid">
+                    <div class="donation-track" data-impact="umkm">
+                        <div class="track-header">
+                            <div class="track-icon umkm"><i class="fas fa-store"></i></div>
+                            <div>
+                                <h3>Rp 50.000<br><small>Waktu: 14:32 WIB</small></h3>
+                                <span class="track-status completed">✅ Tersalur</span>
+                            </div>
+                        </div>
+                        <div class="track-detail">
+                            <p><strong>Warung Mbok Sari</strong><br>Semarang, Jawa Tengah<br><small>5 karyawan terserap • Penjualan +40%</small></p>
+                            <div class="track-progress"><div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div></div>
+                        </div>
+                    </div>
+                    <div class="donation-track" data-impact="petani">
+                        <div class="track-header">
+                            <div class="track-icon petani"><i class="fas fa-seedling"></i></div>
+                            <div>
+                                <h3>Rp 100.000<br><small>Waktu: 10:15 WIB</small></h3>
+                                <span class="track-status progress">⏳ Progress 85%</span>
+                            </div>
+                        </div>
+                        <div class="track-detail">
+                            <p><strong>Bapak Joko - Petani Padi</strong><br>Banyuwangi, Jatim<br><small>Mudharabah • Panen diperkirakan 2 minggu</small></p>
+                            <div class="track-progress"><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
+                        </div>
+                    </div>
+                    <div class="donation-track" data-impact="anak-yatim">
+                        <div class="track-header">
+                            <div class="track-icon anak-yatim"><i class="fas fa-child"></i></div>
+                            <div>
+                                <h3>Rp 25.000<br><small>Waktu: 08:45 WIB</small></h3>
+                                <span class="track-status completed">✅ Tersalur</span>
+                            </div>
+                        </div>
+                        <div class="track-detail">
+                            <p><strong>Beasiswa Tahfidz</strong><br>Yayasan Al-Hikmah, Papua<br><small>10 anak yatim • Program hafalan Al-Quran</small></p>
+                            <div class="track-progress"><div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" style="background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%); color: white;">
+            <div class="container">
+                <h2 class="section-title" style="color: white;">Impact Summary</h2>
+                <div class="impact-grid">
+                    <div class="impact-item"><div class="impact-number" data-target="2450">0</div><p>Penerima Bulan Ini</p></div>
+                    <div class="impact-item"><div class="impact-number" data-target="450000000">0</div><p>Dana Tersalur 24 Jam</p></div>
+                    <div class="impact-item"><div class="impact-number" data-target="128">0</div><p>UMKM Aktif</p></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <h4><i class="fas fa-mosque"></i> AmanahPay</h4>
+                    <p>Ekosistem ekonomi umat berbasis teknologi syariah. Transparan, aman, dan memberdayakan.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="/calculator">Kalkulator Zakat</a>
+                    <a href="/features">Fitur Lengkap</a>
+                    <a href="/transparency">Tracking Donasi</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Perusahaan</h4>
+                    <a href="#">Tentang Kami</a>
+                    <a href="#">Karir</a>
+                    <a href="#">Blog</a>
+                    <a href="#">Kontak</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Bantuan</h4>
+                    <a href="#">FAQ</a>
+                    <a href="#">Panduan</a>
+                    <a href="#">Laporan Keuangan</a>
+                </div>
+            </div>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 AmanahPay. Semua hak dilindungi. <strong>Syariah Compliant</strong></p>
+            </div>
+        </div>
+    </footer>
+    <script src="assets/js/script.js"></script>
+</body>
+</html>
