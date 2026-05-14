@@ -439,10 +439,17 @@ class AmanahPayApp {
                     <div class="map-modal">
                         <div class="map-modal-header">
                             <strong>Peta Distribusi Nasional</strong>
-                            <button type="button" class="map-modal-close" aria-label="Tutup">×</button>
+                            <div class="map-modal-actions">
+                                <button type="button" class="map-control-btn zoom-out" aria-label="Zoom out">−</button>
+                                <button type="button" class="map-control-btn zoom-reset" aria-label="Reset zoom">100%</button>
+                                <button type="button" class="map-control-btn zoom-in" aria-label="Zoom in">+</button>
+                                <button type="button" class="map-modal-close" aria-label="Tutup">×</button>
+                            </div>
                         </div>
                         <div class="map-modal-body">
-                            <img src="${mapImg.getAttribute('src') || ''}" alt="Peta full" class="map-modal-image" />
+                            <div class="map-modal-pan">
+                                <img src="${mapImg.getAttribute('src') || ''}" alt="Peta full" class="map-modal-image" />
+                            </div>
                         </div>
                     </div>
                 `;
@@ -457,6 +464,93 @@ class AmanahPayApp {
                     overlay.style.display = 'none';
                     overlay.remove();
                 };
+
+                const panContainer = overlay.querySelector('.map-modal-pan');
+                const imageModal = overlay.querySelector('.map-modal-image');
+                let zoomLevel = 1;
+                const minZoom = 1;
+                const maxZoom = 3;
+                const step = 0.25;
+                let panX = 0;
+                let panY = 0;
+                let isPanning = false;
+                let startX = 0;
+                let startY = 0;
+                let lastPanX = 0;
+                let lastPanY = 0;
+
+                const clampPan = () => {
+                    if (!imageModal || !panContainer) return;
+                    const containerRect = panContainer.getBoundingClientRect();
+                    const fullWidth = containerRect.width * zoomLevel;
+                    const fullHeight = containerRect.height * zoomLevel;
+                    const maxX = Math.max(0, (fullWidth - containerRect.width) / 2);
+                    const maxY = Math.max(0, (fullHeight - containerRect.height) / 2);
+                    panX = Math.min(maxX, Math.max(-maxX, panX));
+                    panY = Math.min(maxY, Math.max(-maxY, panY));
+                };
+
+                const updateTransform = () => {
+                    if (!imageModal) return;
+                    imageModal.style.transform = `translate(calc(-50% + ${panX}px), calc(-50% + ${panY}px)) scale(${zoomLevel})`;
+                    overlay.querySelector('.zoom-in').disabled = zoomLevel >= maxZoom;
+                    overlay.querySelector('.zoom-out').disabled = zoomLevel <= minZoom;
+                };
+
+                const resetZoom = () => {
+                    zoomLevel = 1;
+                    panX = 0;
+                    panY = 0;
+                    updateTransform();
+                };
+
+                overlay.querySelector('.zoom-in')?.addEventListener('click', () => {
+                    zoomLevel = Math.min(maxZoom, zoomLevel + step);
+                    clampPan();
+                    updateTransform();
+                });
+
+                overlay.querySelector('.zoom-out')?.addEventListener('click', () => {
+                    zoomLevel = Math.max(minZoom, zoomLevel - step);
+                    clampPan();
+                    updateTransform();
+                });
+
+                overlay.querySelector('.zoom-reset')?.addEventListener('click', () => {
+                    resetZoom();
+                });
+
+                if (panContainer) {
+                    panContainer.addEventListener('pointerdown', (e) => {
+                        if (zoomLevel <= 1) return;
+                        isPanning = true;
+                        startX = e.clientX;
+                        startY = e.clientY;
+                        lastPanX = panX;
+                        lastPanY = panY;
+                        panContainer.setPointerCapture(e.pointerId);
+                        panContainer.classList.add('panning');
+                    });
+
+                    panContainer.addEventListener('pointermove', (e) => {
+                        if (!isPanning) return;
+                        panX = lastPanX + (e.clientX - startX);
+                        panY = lastPanY + (e.clientY - startY);
+                        clampPan();
+                        updateTransform();
+                    });
+
+                    const stopPan = (e) => {
+                        if (!isPanning) return;
+                        isPanning = false;
+                        panContainer.classList.remove('panning');
+                    };
+
+                    panContainer.addEventListener('pointerup', stopPan);
+                    panContainer.addEventListener('pointercancel', stopPan);
+                }
+
+                resetZoom();
 
                 overlay.querySelector('.map-modal-close')?.addEventListener('click', close);
 

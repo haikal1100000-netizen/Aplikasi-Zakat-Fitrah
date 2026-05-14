@@ -1167,6 +1167,20 @@ footer {
 
 .map-modal-body {
     position: relative;
+    overflow: hidden;
+}
+
+.map-modal-pan {
+    width: 100%;
+    height: 100%;
+    touch-action: none;
+    cursor: grab;
+    position: relative;
+    overflow: hidden;
+}
+
+.map-modal-pan.panning {
+    cursor: grabbing;
 }
 
 .map-modal-image {
@@ -1174,8 +1188,61 @@ footer {
     height: 100%;
     object-fit: contain;
     display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(1);
+    transform-origin: center center;
+    transition: transform 0.15s ease;
 }
 
+.map-modal-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.map-control-btn {
+    border: none;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    padding: 0.75rem 1rem;
+    border-radius: 14px;
+    cursor: pointer;
+    font-size: 1rem;
+    min-width: 52px;
+    transition: background 0.2s ease;
+}
+
+.map-control-btn:hover:not(:disabled) {
+    background: rgba(255,255,255,0.24);
+}
+
+.map-control-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.map-control-btn {
+    border: none;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    padding: 0.75rem 1rem;
+    border-radius: 14px;
+    cursor: pointer;
+    font-size: 1rem;
+    min-width: 52px;
+    transition: background 0.2s ease;
+}
+
+.map-control-btn:hover:not(:disabled) {
+    background: rgba(255,255,255,0.2);
+}
+
+.map-control-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
 
 .map-container {
     width: 100%;
