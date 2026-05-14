@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AmanahPay - Transparansi</title>
-    <meta name="description" content="Transparansi penyaluran donasi AmanahPay dengan tracking real-time, peta distribusi, dan impact report.">
+    <title>ZIS WALLET - Transparansi</title>
+    <meta name="description" content="Transparansi penyaluran donasi ZIS WALLET dengan tracking real-time, peta distribusi, dan impact report.">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/style.css">
@@ -12,7 +12,7 @@
 <body>
     <header id="header">
         <nav class="container">
-            <a href="/" class="logo"><i class="fas fa-mosque"></i><span>AmanahPay</span></a>
+            <a href="/" class="logo"><i class="fas fa-mosque"></i><span>ZIS WALLET</span></a>
             <ul class="nav-links">
                 <li><a href="/" data-page="home" class="nav-link">Beranda</a></li>
                 <li><a href="/calculator" data-page="calculator" class="nav-link">Kalkulator</a></li>
@@ -37,10 +37,12 @@
         <section class="section map-section">
             <div class="container">
                 <div class="map-container" id="donationMap">
-                    <div class="map-placeholder">
-                        <i class="fas fa-map-marked-alt"></i>
-                        <h3>Peta Distribusi Nasional</h3>
-                        <p>Real-time tracking 500+ lokasi penerima</p>
+                    <img src="/assets/image/Peta.png" alt="Peta Distribusi Donasi" class="map-image" />
+                    <div class="map-overlay">
+                        <div>
+                            <h3>Peta Distribusi Nasional</h3>
+                            <p>Real-time tracking 500+ lokasi penerima</p>
+                        </div>
                         <div class="map-stats">
                             <span><strong>2.450</strong> Penerima Bulan Ini</span>
                             <span><strong>Rp 45M</strong> Tersalur 24 Jam Terakhir</span>
@@ -54,42 +56,100 @@
             <div class="container">
                 <h2 class="section-title">Live Donation Tracking</h2>
                 <div class="tracking-grid">
+                    <div class="donation-track" data-impact="infak">
+                        <div class="track-header">
+                            <div class="track-icon infak"><i class="fas fa-hands-helping"></i></div>
+                            <div>
+                                <h3>Rp 75.000<br><small>Waktu: 14:32 WIB</small></h3>
+                                <span class="track-status completed">✅ Tersalur</span>
+                            </div>
+                        </div>
+                        <div class="track-detail">
+                            <p><strong>Program Infak Umum</strong><br>Bandung, Jawa Barat<br><small>Penyaluran cepat • Verifikasi selesai</small></p>
+                            <div class="track-progress"><div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div></div>
+                        </div>
+                    </div>
+
+                    <div class="donation-track" data-impact="sedekah">
+                        <div class="track-header">
+                            <div class="track-icon sedekah"><i class="fas fa-heart"></i></div>
+                            <div>
+                                <h3>Rp 120.000<br><small>Waktu: 10:15 WIB</small></h3>
+                                <span class="track-status progress">⏳ Progress 82%</span>
+                            </div>
+                        </div>
+                        <div class="track-detail">
+                            <p><strong>Bantuan Paket Makanan</strong><br>Surabaya, Jawa Timur<br><small>Distribusi bertahap • 82% selesai</small></p>
+                            <div class="track-progress"><div class="progress-bar"><div class="progress-fill" style="width:82%"></div></div></div>
+                        </div>
+                    </div>
+
                     <div class="donation-track" data-impact="umkm">
                         <div class="track-header">
                             <div class="track-icon umkm"><i class="fas fa-store"></i></div>
                             <div>
-                                <h3>Rp 50.000<br><small>Waktu: 14:32 WIB</small></h3>
+                                <h3>Rp 250.000<br><small>Waktu: 09:20 WIB</small></h3>
+                                <span class="track-status progress">⏳ Progress 65%</span>
+                            </div>
+                        </div>
+                        <div class="track-detail">
+                            <p><strong>Modal Kerja UMKM</strong><br>Yogyakarta, DIY<br><small>7 UMKM didampingi • 65% disalurkan</small></p>
+                            <div class="track-progress"><div class="progress-bar"><div class="progress-fill" style="width:65%"></div></div></div>
+                        </div>
+                    </div>
+
+                    <div class="donation-track" data-impact="zakat">
+                        <div class="track-header">
+                            <div class="track-icon zakat"><i class="fas fa-scale-balanced"></i></div>
+                            <div>
+                                <h3>Rp 500.000<br><small>Waktu: 08:45 WIB</small></h3>
                                 <span class="track-status completed">✅ Tersalur</span>
                             </div>
                         </div>
                         <div class="track-detail">
-                            <p><strong>Warung Mbok Sari</strong><br>Semarang, Jawa Tengah<br><small>5 karyawan terserap • Penjualan +40%</small></p>
+                            <p><strong>Zakat Perorangan</strong><br>Semarang, Jawa Tengah<br><small>Asnaf terdata • Penyaluran lengkap</small></p>
                             <div class="track-progress"><div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div></div>
                         </div>
                     </div>
-                    <div class="donation-track" data-impact="petani">
+
+                    <div class="donation-track" data-impact="fidyah">
                         <div class="track-header">
-                            <div class="track-icon petani"><i class="fas fa-seedling"></i></div>
+                            <div class="track-icon fidyah"><i class="fas fa-hand-sparkles"></i></div>
                             <div>
-                                <h3>Rp 100.000<br><small>Waktu: 10:15 WIB</small></h3>
-                                <span class="track-status progress">⏳ Progress 85%</span>
+                                <h3>Rp 60.000<br><small>Waktu: 07:50 WIB</small></h3>
+                                <span class="track-status progress">⏳ Progress 90%</span>
                             </div>
                         </div>
                         <div class="track-detail">
-                            <p><strong>Bapak Joko - Petani Padi</strong><br>Banyuwangi, Jatim<br><small>Mudharabah • Panen diperkirakan 2 minggu</small></p>
-                            <div class="track-progress"><div class="progress-bar"><div class="progress-fill" style="width:85%"></div></div></div>
+                            <p><strong>Fidyah Ramadhan</strong><br>Mataram, NTB<br><small>Konfirmasi selesai • Menuju penyaluran</small></p>
+                            <div class="track-progress"><div class="progress-bar"><div class="progress-fill" style="width:90%"></div></div></div>
                         </div>
                     </div>
-                    <div class="donation-track" data-impact="anak-yatim">
+
+                    <div class="donation-track" data-impact="haji">
                         <div class="track-header">
-                            <div class="track-icon anak-yatim"><i class="fas fa-child"></i></div>
+                            <div class="track-icon haji"><i class="fas fa-hat-wizard"></i></div>
                             <div>
-                                <h3>Rp 25.000<br><small>Waktu: 08:45 WIB</small></h3>
+                                <h3>Rp 1.500.000<br><small>Waktu: 06:30 WIB</small></h3>
+                                <span class="track-status progress">⏳ Progress 78%</span>
+                            </div>
+                        </div>
+                        <div class="track-detail">
+                            <p><strong>Tabungan Dana Haji</strong><br>Medan, Sumatera Utara<br><small>Verifikasi dana • 78% terproses</small></p>
+                            <div class="track-progress"><div class="progress-bar"><div class="progress-fill" style="width:78%"></div></div></div>
+                        </div>
+                    </div>
+
+                    <div class="donation-track" data-impact="kurban">
+                        <div class="track-header">
+                            <div class="track-icon kurban"><i class="fas fa-bullseye"></i></div>
+                            <div>
+                                <h3>Rp 2.900.000<br><small>Waktu: 05:10 WIB</small></h3>
                                 <span class="track-status completed">✅ Tersalur</span>
                             </div>
                         </div>
                         <div class="track-detail">
-                            <p><strong>Beasiswa Tahfidz</strong><br>Yayasan Al-Hikmah, Papua<br><small>10 anak yatim • Program hafalan Al-Quran</small></p>
+                            <p><strong>Paket Kurban</strong><br>Kudus, Jawa Tengah<br><small>Distribusi hari H • 100% tersalur</small></p>
                             <div class="track-progress"><div class="progress-bar"><div class="progress-fill" style="width:100%"></div></div></div>
                         </div>
                     </div>
@@ -99,11 +159,15 @@
 
         <section class="section bg-primary-to-secondary text-on-primary">
             <div class="container">
-<h2 class="section-title">Impact Summary</h2>
+                <h2 class="section-title">Impact Summary</h2>
                 <div class="impact-grid">
-                    <div class="impact-item"><div class="impact-number" data-target="2450">0</div><p>Penerima Bulan Ini</p></div>
-                    <div class="impact-item"><div class="impact-number" data-target="450000000">0</div><p>Dana Tersalur 24 Jam</p></div>
+                    <div class="impact-item"><div class="impact-number" data-target="680">0</div><p>Total Infak (penerima)</p></div>
+                    <div class="impact-item"><div class="impact-number" data-target="520">0</div><p>Total Sedekah (penerima)</p></div>
                     <div class="impact-item"><div class="impact-number" data-target="128">0</div><p>UMKM Aktif</p></div>
+                    <div class="impact-item"><div class="impact-number" data-target="310">0</div><p>Zakat (penerima)</p></div>
+                    <div class="impact-item"><div class="impact-number" data-target="245">0</div><p>Fidyah (penerima)</p></div>
+                    <div class="impact-item"><div class="impact-number" data-target="92">0</div><p>Program Haji (berjalan)</p></div>
+                    <div class="impact-item"><div class="impact-number" data-target="180">0</div><p>Program Kurban (penerima)</p></div>
                 </div>
             </div>
         </section>
@@ -113,7 +177,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-section">
-                    <h4><i class="fas fa-mosque"></i> AmanahPay</h4>
+                    <h4><i class="fas fa-mosque"></i> ZIS WALLET</h4>
                     <p>Ekosistem ekonomi umat berbasis teknologi syariah. Transparan, aman, dan memberdayakan.</p>
                 </div>
                 <div class="footer-section">
@@ -143,7 +207,7 @@
                 <a href="#"><i class="fab fa-whatsapp"></i></a>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 AmanahPay. Semua hak dilindungi. <strong>Syariah Compliant</strong></p>
+                <p>&copy; 2026 ZIS WALLET. Semua hak dilindungi. <strong>Syariah Compliant</strong></p>
             </div>
         </div>
     </footer>

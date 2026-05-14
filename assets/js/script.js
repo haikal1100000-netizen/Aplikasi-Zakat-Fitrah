@@ -165,6 +165,7 @@ class AmanahPayApp {
     initHomePage() {
         const tabs = document.querySelectorAll('.home-tab');
         const bodies = document.querySelectorAll('.home-tab-body');
+
         const donationCategory = document.getElementById('donationCategory');
         const donationItemGroup = document.getElementById('donationItemGroup');
         const donationItemLabel = document.getElementById('donationItemLabel');
@@ -226,9 +227,17 @@ class AmanahPayApp {
                 donationItemLabel.textContent = category === 'Kurban' ? 'Pilih Paket Kurban' : category === 'Dam Haji' ? 'Pilih Paket Dam Haji' : category === 'Sedekah' ? 'Pilih Program Sedekah' : 'Pilih Program Infak';
                 donationQuantityGroup.style.display = showQuantity ? 'block' : 'none';
                 donationQuantity.value = '1';
-                donationAmount.readOnly = true;
-                donationAmountWrapper.classList.add('disabled');
-                updateDonationAmount();
+
+                // Manual nominal for Infak & Sedekah.
+                if (category === 'Sedekah' || category === 'Infak') {
+                    donationAmount.readOnly = false;
+                    donationAmountWrapper.classList.remove('disabled');
+                    // Jangan auto-set nominal; biarkan user mengisi.
+                } else {
+                    donationAmount.readOnly = true;
+                    donationAmountWrapper.classList.add('disabled');
+                    updateDonationAmount();
+                }
             } else {
                 donationItemGroup.style.display = 'none';
                 donationQuantityGroup.style.display = 'none';
@@ -245,11 +254,14 @@ class AmanahPayApp {
                 const itemPrice = parseInt(donationItem.value, 10) || 0;
                 donationAmount.value = formatNumber(itemPrice * unit);
             } else if (category === 'Sedekah' || category === 'Infak') {
-                const itemPrice = parseInt(donationItem.value, 10) || 0;
-                donationAmount.value = formatNumber(itemPrice);
+                // Nominal diisi manual, jadi jangan auto-update.
+                // (Fungsi ini dipanggil dari event change, tapi kita sengaja tidak mengubah value.)
+                return;
             }
         }
 
+        // Home page now uses a static subtitle instead of a tab.
+        // Keep tab logic only if elements exist (backward compatibility).
         tabs.forEach(tab => {
             tab.addEventListener('click', () => {
                 tabs.forEach(item => item.classList.remove('active'));
@@ -258,6 +270,9 @@ class AmanahPayApp {
                 document.getElementById(tab.dataset.tab)?.classList.add('active');
             });
         });
+
+        // Ensure the home form is visible (no tab switching).
+        bodies.forEach(body => body.classList.add('active'));
 
         donationCategory?.addEventListener('change', updateDonationInputs);
         donationItem?.addEventListener('change', updateDonationAmount);
@@ -407,6 +422,69 @@ class AmanahPayApp {
             bar.style.width = '0%';
             setTimeout(() => bar.style.width = width, 500);
         });
+
+        // Klik peta untuk menampilkan versi fullscreen
+        const mapContainer = document.getElementById('donationMap');
+        const mapImg = mapContainer?.querySelector('img.map-image, img.map-image');
+        if (mapContainer && mapImg) {
+
+            mapContainer.style.cursor = 'pointer';
+
+            const openModal = () => {
+                const overlay = document.createElement('div');
+                overlay.className = 'map-modal-overlay';
+                overlay.setAttribute('role', 'dialog');
+                overlay.setAttribute('aria-modal', 'true');
+                overlay.innerHTML = `
+                    <div class="map-modal">
+                        <div class="map-modal-header">
+                            <strong>Peta Distribusi Nasional</strong>
+                            <button type="button" class="map-modal-close" aria-label="Tutup">×</button>
+                        </div>
+                        <div class="map-modal-body">
+                            <img src="${mapImg.getAttribute('src') || ''}" alt="Peta full" class="map-modal-image" />
+                        </div>
+                    </div>
+                `;
+
+                document.body.appendChild(overlay);
+
+                requestAnimationFrame(() => {
+                    overlay.style.display = 'flex';
+                });
+
+                const close = () => {
+                    overlay.style.display = 'none';
+                    overlay.remove();
+                };
+
+                overlay.querySelector('.map-modal-close')?.addEventListener('click', close);
+
+                // Tutup saat klik background
+                overlay.addEventListener('click', (e) => {
+                    if (e.target === overlay) close();
+                });
+
+                // Tutup via tombol ESC
+                const onKeyDown = (e) => {
+                    if (e.key === 'Escape') {
+                        document.removeEventListener('keydown', onKeyDown);
+                        close();
+                    }
+                };
+                document.addEventListener('keydown', onKeyDown);
+            };
+
+            mapContainer.addEventListener('click', (e) => {
+                // Hindari click berlapis overlay teks
+                if (e.target && (e.target.closest('.map-overlay') || e.target.tagName === 'IMG')) {
+                    openModal();
+                    return;
+                }
+                openModal();
+            });
+        }
+
 
         const impactNumbers = document.querySelectorAll('.impact-number[data-target]');
         impactNumbers.forEach(num => {

@@ -421,14 +421,25 @@ nav {
     padding: 2.5rem;
 }
 
-.home-tab-header {
+ .home-tab-header {
     display: flex;
     gap: 0.5rem;
     margin-bottom: 1.75rem;
     background: var(--surface-strong);
     border-radius: 18px;
     padding: 0.5rem;
+    align-items: center;
+    justify-content: center;
 }
+
+.home-form-subtitle {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--primary);
+    margin: 0;
+    text-align: center;
+} 
+
 
 .home-tab {
     flex: 1;
@@ -1098,28 +1109,124 @@ footer {
 }
 
 /* TRANSPARENCY */
-.map-section { background: var(--light); }
-
-.map-container {
-    height: 500px;
-    background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
-    border-radius: 25px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 4rem;
-    position: relative;
-    overflow: hidden;
+.map-section {
+    background: var(--light);
+    padding-top: 100px;
+    padding-bottom: 100px;
 }
 
-.map-placeholder i { font-size: 6rem; color: var(--success); margin-bottom: 2rem; }
+/* Fullscreen map modal */
+.map-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    z-index: 10000;
+}
+
+.map-modal {
+    width: min(1200px, 100%);
+    height: min(720px, 80vh);
+    background: #000;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 40px 80px rgba(0,0,0,0.35);
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+.map-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: rgba(0,0,0,0.7);
+    color: #fff;
+}
+
+.map-modal-header strong {
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+.map-modal-close {
+    border: none;
+    background: rgba(255,255,255,0.12);
+    color: #fff;
+    font-size: 1.75rem;
+    line-height: 1;
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    cursor: pointer;
+}
+
+.map-modal-body {
+    position: relative;
+}
+
+.map-modal-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    display: block;
+}
+
+
+.map-container {
+    width: 100%;
+    cursor: pointer;
+
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 620px;
+    border-radius: 30px;
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 0;
+    background: #000;
+}
+
+.map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.82);
+}
+
+.map-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 3.5rem;
+    color: white;
+    background: linear-gradient(180deg, rgba(0,0,0,0.16) 0%, rgba(0,0,0,0.5) 100%);
+}
+
+.map-overlay h3,
+.map-overlay p {
+    margin: 0;
+}
 
 .map-stats {
     display: flex;
     gap: 2rem;
-    margin-top: 2rem;
+    margin-top: 1rem;
     flex-wrap: wrap;
-    justify-content: center;
+}
+
+.map-overlay span {
+    background: rgba(255,255,255,0.12);
+    padding: 0.9rem 1.2rem;
+    border-radius: 16px;
+    font-weight: 600;
 }
 
 .tracking-grid {
@@ -1159,7 +1266,15 @@ footer {
     color: white;
 }
 
+.track-icon.infak { background: linear-gradient(135deg, #28a745, #20c997); }
+.track-icon.sedekah { background: linear-gradient(135deg, #ff6b6b, #ff9f43); }
 .track-icon.umkm { background: linear-gradient(135deg, #28a745, #20c997); }
+.track-icon.zakat { background: linear-gradient(135deg, #1f5f34, #8cc57f); }
+.track-icon.fidyah { background: linear-gradient(135deg, #17a2b8, #138496); }
+.track-icon.haji { background: linear-gradient(135deg, #b784ff, #5eead4); }
+.track-icon.kurban { background: linear-gradient(135deg, #f59e0b, #ef4444); }
+
+/* legacy */
 .track-icon.petani { background: linear-gradient(135deg, #17a2b8, #138496); }
 .track-icon.anak-yatim { background: linear-gradient(135deg, #ffc107, #e0a800); }
 
