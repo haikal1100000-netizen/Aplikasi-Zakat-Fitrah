@@ -16,6 +16,18 @@ class AmanahPayApp {
     }
 
     async init() {
+        if (window.location.protocol === 'file:') {
+            this.bindEvents();
+            const fileName = window.location.pathname.split('/').pop() || 'index.html';
+            const pageKey = this.getPageKey(fileName);
+            this.currentPage = pageKey;
+            this.updateActiveNav(pageKey);
+            this.initCurrentPage(pageKey);
+            this.hideLoading();
+            this.animateStats();
+            return;
+        }
+
         // Preload all pages
         await this.preloadPages();
 
@@ -47,6 +59,11 @@ class AmanahPayApp {
 
     async loadPage(path = '/') {
         const pageKey = this.getPageKey(path);
+
+        if (window.location.protocol === 'file:') {
+            window.location.href = pageKey === 'home' ? 'index.html' : `${pageKey}.html`;
+            return;
+        }
 
         // Show loading state
         document.body.classList.add('loading');
@@ -92,8 +109,9 @@ class AmanahPayApp {
     }
 
     getPageKey(path) {
-        const cleanPath = path.replace('/', '').replace('.html', '');
-        return cleanPath === '' ? 'home' : cleanPath;
+        if (path === '/' || path === '') return 'home';
+        const cleanPath = path.replace(/^\/+/, '').replace('.html', '');
+        return cleanPath === '' || cleanPath === 'index' ? 'home' : cleanPath;
     }
 
     updateActiveNav(pageKey) {
@@ -463,6 +481,7 @@ class AmanahPayApp {
                 const close = () => {
                     overlay.style.display = 'none';
                     overlay.remove();
+                    document.removeEventListener('keydown', onKeyDown);
                 };
 
                 const panContainer = overlay.querySelector('.map-modal-pan');
